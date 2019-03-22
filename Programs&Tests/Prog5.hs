@@ -9,11 +9,9 @@ module Prog5 where
 --You may not use any built-in Haskell functions.
 reverse' :: [a] -> [a]
 reverse' [] = []
-reverse' (x:xs) = case xs == [] of
-  False -> reverse' xs ++ [x]
-  True -> []
+reverse' (x:xs) = case xs of
+  _  -> reverse' xs ++ [x]
 
-  --[1,2,3,4] -> 2,3,4 not empty -> reverse' [2,3,4] ++ [1]
 --2. Write a function isPalindrome that returns if some list can be read the same way forward and backward.
 --(e.g. "12345" and "madam")
 isPalindrome :: String -> Bool
@@ -38,24 +36,27 @@ data Set = Set [Int]
     deriving Show
 --4. Write a function member that checks whether the given item is present in the given set.
 member :: Int -> Set -> Bool
-member n [] = False
+member n (Set []) = False
+member n (Set (x:xs)) = case n == x of
+  True -> True
+  False -> member n (Set xs)
 --5. Write a function size that returns the number of elements in a given set.
 size :: Set -> Int
-size [] = 0
+size a = 0
 --6. Write a function add that inserts the given item into a set.
 --(If the item is already in the set, simply return the set unmodified.)
 --(Hint: you may want to program a helper function that takes two Sets and merges them into one.)
 add :: Int -> Set -> Set
-add n [] = [n]
+add n a = a
 --7. Write a function safeRemoveMax that removes the largest element from a set of integers.
 safeRemoveMax :: Set -> Maybe Int
-safeRemoveMax [] = Nothing
+safeRemoveMax a = Nothing
 --8. Write a function equal that returns whether two sets are equal.
 equal :: Set -> Set -> Bool
-equal [] [] = True
+equal a b = True
 --9. Write a function union that takes two sets and returns the union of both sets.
 union :: Set -> Set -> Set
-union [] [] = []
+union a b = a
 --10. Write a function intersection that takes two sets and returns the intersection of them.
 intersection :: Set -> Set -> Set
-intersection [] [] = []
+intersection a b = a
