@@ -37,6 +37,7 @@ unitTests = testGroup "Unit tests"
       testCase "test1b" $ assertEqual [] (01,01,2009) (older (01,01,2009) (02,03,2009)),
       testCase "test1c" $ assertEqual [] (02,03,2009) (older (03,02,2009) (02,03,2009)),
       testCase "test1d" $ assertEqual [] (02,30,2009) (older (01,09,2010) (02,30,2009)),
+      testCase "test1e" $ assertEqual [] (02,30,2009) (older (02,30,2009) (02,30,2009)),
 
       testCase "test2a" $ assertEqual [] 1 (numInMonth 1 [(01,01,2008),(02,03,2009),(12,01,2009)]),
       testCase "test2b" $ assertEqual [] 0 (numInMonth 1 []),
