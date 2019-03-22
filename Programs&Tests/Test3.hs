@@ -13,7 +13,6 @@ First time user type in the command below
 import Prog3
 import Test.Tasty
 import Test.Tasty.HUnit
-import Test.Tasty.ExpectedFailure
 import System.Environment
 
 
