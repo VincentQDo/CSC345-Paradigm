@@ -11,7 +11,6 @@ reverse' :: [a] -> [a]
 reverse' [] = []
 reverse' (x:xs) = case xs of
   _  -> reverse' xs ++ [x]
-
 --2. Write a function isPalindrome that returns if some list can be read the same way forward and backward.
 --(e.g. "12345" and "madam")
 isPalindrome :: String -> Bool
@@ -33,7 +32,7 @@ safeFindAfter str (x:xs) = case x == str of
 
 data Set = Set [Int]
          | EmptySet
-    deriving Show
+    deriving (Eq, Show)
 --4. Write a function member that checks whether the given item is present in the given set.
 member :: Int -> Set -> Bool
 member n (Set []) = False
@@ -41,22 +40,55 @@ member n (Set (x:xs)) = case n == x of
   True -> True
   False -> member n (Set xs)
 --5. Write a function size that returns the number of elements in a given set.
+--SUPER EASY
 size :: Set -> Int
-size a = 0
+size (Set a) = length a
 --6. Write a function add that inserts the given item into a set.
 --(If the item is already in the set, simply return the set unmodified.)
 --(Hint: you may want to program a helper function that takes two Sets and merges them into one.)
 add :: Int -> Set -> Set
-add n a = a
+add n (Set a) = case length [x | x <- a, x == n] == 1 of
+  True -> Set a
+  False -> Set (a ++ [n])
 --7. Write a function safeRemoveMax that removes the largest element from a set of integers.
 safeRemoveMax :: Set -> Maybe Int
-safeRemoveMax a = Nothing
+safeRemoveMax (Set []) = Nothing
+safeRemoveMax (Set [x,y]) = case x > y of
+  True -> Just x
+  False -> Just y
+safeRemoveMax (Set (x:y:xs)) = case x > y of
+  True -> safeRemoveMax $ Set (x:xs)
+  False -> safeRemoveMax $ Set (y:xs)
 --8. Write a function equal that returns whether two sets are equal.
+--SUPER EASY
 equal :: Set -> Set -> Bool
-equal a b = True
+equal (Set [x]) (Set [y]) = x == y
+equal (Set (x:xs)) (Set (y:ys)) = length [1 | z <- (x:xs), member z (Set b)] == length b
+  where a = xs
+        b = ys
 --9. Write a function union that takes two sets and returns the union of both sets.
 union :: Set -> Set -> Set
-union a b = a
+union EmptySet EmptySet = EmptySet
+union EmptySet b = b
+union a EmptySet = a
+union (Set []) (Set []) = EmptySet
+union (Set []) (Set b) = Set b
+union (Set a) (Set []) = Set a
+union (Set (x:xs)) (Set (y:ys)) = case x == y of
+  True -> add x $ union (Set xs) (Set ys)
+  False -> Set $ quickSort' $ setToList $ add x $ add y $ union (Set xs) (Set ys)
+setToList :: Set -> [Int]
+setToList (Set x) = x
+--quickSort' is creditted to http://wiki.c2.com/?QuickSortInHaskell
+quickSort' :: [Int] -> [Int]
+quickSort' [] = []
+quickSort' (x:xs) = quickSort' ([y | y <- xs, y <= x]) ++ [x] ++ quickSort' ([z | z <- xs, z > x])
 --10. Write a function intersection that takes two sets and returns the intersection of them.
 intersection :: Set -> Set -> Set
-intersection a b = a
+intersection EmptySet EmptySet = EmptySet
+intersection EmptySet _ = EmptySet
+intersection _ EmptySet = EmptySet
+intersection (Set []) (Set []) = EmptySet
+intersection (Set []) (Set _) = EmptySet
+intersection (Set _) (Set []) = EmptySet
+intersection (Set a) (Set b)  = Set [s | s <- a , member s (Set b)]
