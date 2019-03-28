@@ -41,6 +41,7 @@ unitTests = testGroup "Unit tests"
       testCase "test2a" $ assertEqual [] False (isPalindrome "mad"),
       testCase "test2b" $ assertEqual [] True (isPalindrome "madam"),
       testCase "test2c" $ assertEqual [] True (isPalindrome "aaa"),
+      testCase "test2d" $ assertEqual [] True (isPalindrome ""),
 
       testCase "test3a" $ assertEqual [] Nothing (safeFindAfter "mad" []),
       testCase "test3b" $ assertEqual [] Nothing (safeFindAfter "Given" ["Test", "Hello", "mad"]),
@@ -49,20 +50,34 @@ unitTests = testGroup "Unit tests"
 
       testCase "test4a" $ assertEqual [] True (member 1 (Set [1,2,3])),
       testCase "test4b" $ assertEqual [] False (member 1 (Set [])),
+      testCase "test4b" $ assertEqual [] False (member 1 EmptySet),
 
       testCase "test5a" $ assertEqual [] 3 (size (Set [1,2,3])),
       testCase "test5b" $ assertEqual [] 0 (size (Set [])),
+      testCase "test5c" $ assertEqual [] 0 (size EmptySet),
+
 
       testCase "test6a" $ assertEqual [] (Set [3,2,5]) (add 2 (Set [3,2,5])),
       testCase "test6b" $ assertEqual [] (Set [3,2,5,1]) (add 1 (Set [3,2,5])),
+      testCase "test6c" $ assertEqual [] (Set [1]) (add 1 (Set [])),
+      testCase "test6d" $ assertEqual [] (Set [1]) (add 1 EmptySet),
 
       testCase "test7a" $ assertEqual [] (Just 5) (safeRemoveMax (Set [1,2,5,4])),
       testCase "test7b" $ assertEqual [] Nothing (safeRemoveMax (Set [])),
+      testCase "test7c" $ assertEqual [] Nothing (safeRemoveMax EmptySet),
+
 
       testCase "test8a" $ assertEqual [] True (equal (Set [1,2,3]) (Set [1,2,3])),
       testCase "test8b" $ assertEqual [] False (equal (Set [1,2,3]) (Set [1,2,3,4])),
       testCase "test8c" $ assertEqual [] False (equal (Set [1,2,3]) (Set [1,2,5])),
       testCase "test8d" $ assertEqual [] True (equal (Set [1,2,3]) (Set [1,3,2])),
+      testCase "test8e" $ assertEqual [] True (equal (Set []) (Set [])),
+      testCase "test8f" $ assertEqual [] False (equal (Set []) (Set [1])),
+      testCase "test8g" $ assertEqual [] False (equal (Set [2]) (Set [])),
+      testCase "test8h" $ assertEqual [] True (equal EmptySet EmptySet),
+      testCase "test8i" $ assertEqual [] False (equal EmptySet (Set [2])),
+      testCase "test8j" $ assertEqual [] False (equal (Set [2]) EmptySet),
+
 
 
       testCase "test9a" $ assertEqual [] (Set [1,2,3,4,5,6,7]) (union (Set [1,2,3,4,5]) (Set [4,5,6,7])),
