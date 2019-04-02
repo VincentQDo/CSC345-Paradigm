@@ -48,7 +48,7 @@ month2String month
   | otherwise       = error "Date not available"
 --Same as above, but do not use 12 conditionals. Instead, use a list holding 12 strings (the months) as well as the !! operator to index this list.
 date2Str' :: Date -> String
-months = ["January", "February", "March", "April", "May", "June", "July", "June", "August", "September", "October", "November", "December"]
+months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"] --Deleted a duplicate of June right after July which causes anything after July to be in the wrong index
 date2Str' (0,_,_) = error "Date not in range"
 date2Str' (month, day, year) = case validDate (month, day, year) of
   True -> months !! (month - 1) ++ " " ++ show day ++ ", " ++ show year
@@ -94,11 +94,11 @@ validLeapDate (month, day, year) =
     _ -> False
   _ -> False
 --Write a function season that takes a date and returns the season that the date is in.
-season :: Date -> Season
-springEquinox = monthDays !! 3 + 20
-summerSolstice = monthDays !! 6 + 21
-fallEquinox = monthDays !! 9 + 22
-winterSolstice = monthDays !! 12 + 21
+season :: Date -> Season --also added subtract 1 into the seasons and findDay variable to find correct days
+springEquinox = monthDays !! (3-1) + 20
+summerSolstice = monthDays !! (6-1) + 21
+fallEquinox = monthDays !! (9-1) + 22
+winterSolstice = monthDays !! (12-1) + 21
 season (month, day, year) =
   case validDate a of
     False -> case validLeapDate a of
@@ -112,6 +112,7 @@ season (month, day, year) =
             False -> "Fall"
           False -> "Summer"
         False -> "Spring"
+      False -> "Winter" --added this missing clause which cause Winter not appear for anything smaller than March 20
   where
     a = (month, day, year)
-    findDay = monthDays !! month + day
+    findDay = monthDays !! (month-1) + day
