@@ -89,13 +89,9 @@ union (Set a) (Set []) = Set a
 --all the patterns above are for special cases where there maybe an emptyset or a set of nothing
 union (Set (x:xs)) (Set (y:ys)) = case x == y of
   True -> add x $ union (Set xs) (Set ys)
-  False -> Set $ quickSort' $ setToList $ add x $ add y $ union (Set xs) (Set ys)
+  False -> Set $ setToList $ add x $ add y $ union (Set xs) (Set ys)
 setToList :: Set -> [Int]
 setToList (Set x) = x
---quickSort' is creditted to http://wiki.c2.com/?QuickSortInHaskell
-quickSort' :: [Int] -> [Int]
-quickSort' [] = []
-quickSort' (x:xs) = quickSort' ([y | y <- xs, y <= x]) ++ [x] ++ quickSort' ([z | z <- xs, z > x])
 --10. Write a function intersection that takes two sets and returns the intersection of them.
 -- SUPER EASY
 intersection :: Set -> Set -> Set
