@@ -93,6 +93,7 @@ union (Set (x:xs)) (Set (y:ys)) = case x == y of
 setToList :: Set -> [Int]
 setToList (Set x) = x
 --new feature added
+-- three new feature added
 --10. Write a function intersection that takes two sets and returns the intersection of them.
 -- SUPER EASY
 intersection :: Set -> Set -> Set
