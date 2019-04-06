@@ -28,3 +28,6 @@ perimeter :: Shape -> Maybe Int
 perimeter (Triangle (x,y,z)) = Just (x+y+z)
 perimeter (Rectangle (x,y)) = Just (x+y)
 perimeter (Circle _) = Nothing
+
+returnIO :: IO Char -> IO Char
+returnIO getChar = getChar
