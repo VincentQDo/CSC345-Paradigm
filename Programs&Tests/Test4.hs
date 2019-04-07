@@ -66,10 +66,10 @@ unitTests = testGroup "Unit tests"
       testCase "test9b" $ assertEqual [] True (validLeapDate (2,29,1996)),
       testCase "test9c" $ assertEqual [] True (validLeapDate (2,29,2000)),
 
-      testCase "test10a" $ assertEqual [] "Spring" (season (3,29,2019)),
+      testCase "test10a" $ assertEqual [] "Spring" (season (3,31,2019)),
       testCase "test10b" $ assertEqual [] "Summer" (season (6,21,2019)),
       testCase "test10c" $ assertEqual [] "Fall" (season (9,22,2019)),
-      testCase "test10d" $ assertEqual [] "Winter" (season (12,21,2019)),
+      testCase "test10d" $ assertEqual [] "Winter" (season (12,31,2019)),
       testCase "test10e" $ assertEqual [] "Winter" (season (12,30,2019)),
       testCase "test10f" $ assertEqual [] "Spring" (season (5,21,2019)),
       testCase "test10g" $ assertEqual [] "Winter" (season (2,29,2020)),
