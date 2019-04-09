@@ -50,10 +50,10 @@ unitTests = testGroup "Unit tests"
 
       testCase "test3a" $ assertEqual [] 0 (sumpositives (ts !! 0)),
       testCase "test3b" $ assertEqual [] 13 (sumpositives (ts !! 1)),
-      testCase "test3c" $ assertEqual [] 12 (sumpositives (ts !! 2)),
+      testCase "test3c" $ assertEqual [] 9 (sumpositives (ts !! 2)),
       testCase "test3d" $ assertEqual [] 15 (sumpositives (ts !! 3)),
       testCase "test3e" $ assertEqual [] 28 (sumpositives (ts !! 4)),
-      testCase "test3f" $ assertEqual [] 27 (sumpositives (ts !! 5)),
+      testCase "test3f" $ assertEqual [] 21 (sumpositives (ts !! 5)),
 
       testCase "test4a" $ assertEqual [] 0 (countInteriorNodes (ts !! 0)),
       testCase "test4b" $ assertEqual [] 0 (countInteriorNodes (ts !! 1)),
