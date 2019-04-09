@@ -26,21 +26,27 @@ countInteriorNodes :: Tree1 -> Int
 countInteriorNodes (Leaf1 n) =  0
 countInteriorNodes (Node1 left r right) = 1 + countInteriorNodes left + countInteriorNodes right
 
--- 5.Write a function depth that returns the depth of a tree. (A tree with only a root node is defined to have depth=1.)
+-- 5. Write a function depth that returns the depth of a tree. (A tree with only a root node is defined to have depth=1.)
 depth :: Tree1 -> Int
 depth (Leaf1 n) = 1
-depth tree = case tree of
-             Node1 (Leaf1 l1) n1 (Leaf1 l2) -> 2
-             Node1 n2 root (Leaf1 l2)       -> 1 + depth n2
-             Node1 (Leaf1 l2) root n2       -> 1 + depth n2
-             Node1 n2 root n3               -> 1 + maximum [depth n2, depth n3]
+depth tree = 1 + maximum [depth n2, depth n3]
 
 data Tree2 a = Leaf2 a
              | Node2 [Tree2 a]
 
+t2 :: Tree2 a
+t2 = Node2 [Node2 [Leaf2 2, Leaf2 3, Leaf2 7], Leaf2 5, Node2 [Leaf2 4, Leaf2 6]]
+--6. Write a function occurs that returns whether a given argument is present in a given tree.
 occurs :: Eq a => a -> Tree2 a -> Bool
 occurs n (Leaf2 x) = n == x
 occurs n (Node2 []) = False
-occurs n (Node2 (x:xs)) = case n == x of
-  True -> True
-  False -> occurs n (Node2 xs)
+occurs n (Node2 (x:xs)) = or [occurs x, occurs xs]
+
+--   Write a function countLeaves that takes a tree argument and returns the number of leaves in the tree.
+--   countLeaves :: Tree2 a -> Int
+--   Write a function sumTree that takes a tree of integers and returns the sum of all integers in the tree.
+--   sumTree :: Tree2 Int -> Int
+--   Write a function post2 that returns a postorder traversal of the nodes in the tree.
+--   post2 :: Tree2 a -> [a]
+--   Write a function depthK that returns all nodes that are at depth k in the tree. (A tree with only a root node is defined to have depth=1.) The order that the nodes are returned does not matter.
+--   depthK :: Int -> Tree2 a -> [a]
