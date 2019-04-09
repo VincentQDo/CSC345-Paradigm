@@ -92,12 +92,6 @@ union (Set (x:xs)) (Set (y:ys)) = case x == y of
   False -> Set $ setToList $ add x $ add y $ union (Set xs) (Set ys)
 setToList :: Set -> [Int]
 setToList (Set x) = x
-<<<<<<< HEAD
---new feature added
--- three new feature added
-=======
---another new feature is added
->>>>>>> feature/another-one
 --10. Write a function intersection that takes two sets and returns the intersection of them.
 -- SUPER EASY
 intersection :: Set -> Set -> Set
@@ -107,4 +101,6 @@ intersection _ EmptySet = EmptySet
 intersection (Set []) (Set []) = EmptySet
 intersection (Set []) (Set _) = EmptySet
 intersection (Set _) (Set []) = EmptySet
-intersection (Set a) (Set b)  = Set [s | s <- a , member s (Set b)]
+intersection (Set a) (Set b)  = case Set [s | s <- a , member s (Set b)] of
+  Set [] -> EmptySet
+  Set (x:xs) -> Set [s | s <- a , member s (Set b)]

@@ -57,6 +57,12 @@ unitTests = testGroup "Unit tests"
       testCase "test4c" $ assertEqual [] 1 (countInteriorNodes (ts !! 2)),
       testCase "test4d" $ assertEqual [] 1 (countInteriorNodes (ts !! 3)),
       testCase "test4e" $ assertEqual [] 2 (countInteriorNodes (ts !! 4)),
-      testCase "test4f" $ assertEqual [] 3 (countInteriorNodes (ts !! 5))
+      testCase "test4f" $ assertEqual [] 3 (countInteriorNodes (ts !! 5)),
 
+      testCase "test5a" $ assertEqual [] 1 (depth (ts !! 0)),
+      testCase "test5b" $ assertEqual [] 2 (depth (ts !! 1)),
+      testCase "test5c" $ assertEqual [] 3 (depth (ts !! 2)),
+      testCase "test5d" $ assertEqual [] 3 (depth (ts !! 3)),
+      testCase "test5e" $ assertEqual [] 3 (depth (ts !! 4)),
+      testCase "test5f" $ assertEqual [] 4 (depth (ts !! 5))
   ]
