@@ -38,9 +38,9 @@ depth tree = case tree of
 data Tree2 a = Leaf2 a
              | Node2 [Tree2 a]
 
--- occurs :: Eq a => a -> Tree2 a -> Bool
--- occurs n (Leaf2 x) = n == x
--- occurs n (Node2 []) = False
--- occurs n (Node2 (x:xs)) = case n == x of
---   True -> True
---   False -> occurs n (Node2 xs)
+occurs :: Eq a => a -> Tree2 a -> Bool
+occurs n (Leaf2 x) = n == x
+occurs n (Node2 []) = False
+occurs n (Node2 (x:xs)) = case n == x of
+  True -> True
+  False -> occurs n (Node2 xs)
