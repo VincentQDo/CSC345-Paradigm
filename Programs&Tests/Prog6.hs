@@ -42,3 +42,13 @@ depth tree = case tree of
              Node1 n2 root (Leaf1 l2)       -> 1 + depth n2
              Node1 (Leaf1 l2) root n2       -> 1 + depth n2
              Node1 n2 root n3               -> 1 + maximum [depth n2, depth n3]
+
+data Tree2 a = Leaf2 a
+             | Node2 [Tree2 a]
+
+-- occurs :: Eq a => a -> Tree2 a -> Bool
+-- occurs a (Leaf2 x) = if a == x then True else False
+-- occurs a (Node2 []) = False
+-- occurs a (Node2 (x:xs)) = case a == x of
+--   True -> True
+--   False -> occurs a (Node2 xs)
