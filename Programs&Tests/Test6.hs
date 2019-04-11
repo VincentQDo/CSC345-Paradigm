@@ -30,8 +30,27 @@ tests = testGroup "Tests" [unitTests]
 ts :: [Tree1]
 ts = [Leaf1 0, Node1 (Leaf1 3) 4 (Leaf1 6), Node1 (Node1 (Leaf1 4) 2 (Leaf1 5)) 1 (Leaf1 (-3)), Node1  (Leaf1 3) 1 (Node1 (Leaf1 4) 2 (Leaf1 5)), Node1  (Node1 (Leaf1 4) 2 (Leaf1 5)) 1 (Node1 (Leaf1 6) 3 (Leaf1 7)), Node1  (Node1 (Leaf1 4) 2 (Node1 (Leaf1 (-6)) 5 (Leaf1 7))) 1 (Node1 (Leaf1 0) 3 (Leaf1 5)), Node1 (Leaf1 1) 2 (Node1 (Leaf1 7) 5 (Leaf1 8))]
 ts' :: [Tree2 Int]
-ts' = [Leaf2 0, Node2 [], Node2 [Leaf2 2, Leaf2 3, Leaf2 4, Node2 [Leaf2 5, Leaf2 6]]]
+ts' = [Leaf2 0, Node2 [], Node2 [Leaf2 2, Leaf2 3, Leaf2 4, Node2 [Leaf2 5, Leaf2 6]], Node2 [Node2 [Leaf2 5, Leaf2 6], Leaf2 2, Leaf2 3, Leaf2 4]]
 
+testTree :: Tree1
+testTree = Node1 (Leaf1 7) 5 (Leaf1 8)
+testTree3 :: Tree1
+testTree3 = Node1 (Leaf1 1) 2 testTree
+
+testTree2 :: (Num a) => Tree2 a
+testTree2 = Node2 [testTree2Node1, testTree2Node2, testTree2Node3]
+
+
+testTree2Node1 :: (Num a) =>  Tree2 a
+testTree2Node1 = Leaf2 1
+
+
+testTree2Node2 :: (Num a) =>  Tree2 a
+testTree2Node2 = Node2 [Node2 [(Leaf2 2), (Leaf2 3)], Leaf2 4]
+
+
+testTree2Node3 :: (Num a) =>  Tree2 a
+testTree2Node3 = Node2 [ Node2 [ Node2 [ (Leaf2 5), Leaf2 6, Leaf2 7], ( Leaf2 8 ), Leaf2 9, Node2 [Leaf2 10, Leaf2 11, Leaf2 12]]]
 unitTests = testGroup "Unit tests"
   [
       testCase "test1a" $ assertEqual [] [0] (preorder (ts !! 0)),
@@ -71,6 +90,22 @@ unitTests = testGroup "Unit tests"
 
       testCase "test6a" $ assertEqual [] True (occurs 0 (ts' !! 0)),
       testCase "test6b" $ assertEqual [] False (occurs 3 (ts' !! 1)),
-      testCase "test6c" $ assertEqual [] True (occurs 3 (ts' !! 2))
+      testCase "test6c" $ assertEqual [] True (occurs 3 (ts' !! 2)),
+
+      testCase "test7a" $ assertEqual [] 1 (countLeaves (ts' !! 0)),
+      testCase "test7b" $ assertEqual [] 0 (countLeaves (ts' !! 1)),
+      testCase "test7c" $ assertEqual [] 5 (countLeaves (ts' !! 2)),
+
+      testCase "test8a" $ assertEqual [] 0 (sumTree (ts' !! 0)),
+      testCase "test8b" $ assertEqual [] 0 (sumTree (ts' !! 1)),
+      testCase "test8c" $ assertEqual [] 20 (sumTree (ts' !! 2)),
+
+      testCase "test9a" $ assertEqual [] [0] (post2 (ts' !! 0)),
+      testCase "test9b" $ assertEqual [] [] (post2 (ts' !! 1)),
+      testCase "test9c" $ assertEqual [] [2,3,4,5,6] (post2 (ts' !! 2)),
+      testCase "test9d" $ assertEqual [] [5,6,2,3,4] (post2 (ts' !! 3)),
+      testCase "test9e" $ assertEqual [] [1,2,3,4,5,6,7,8,9,10,11,12] (post2 testTree2)
+
+
 
   ]

@@ -41,11 +41,23 @@ occurs n (Leaf2 x) = n == x
 occurs n (Node2 []) = False
 occurs n (Node2 (x:xs)) = or [occurs n x, occurs n (Node2 xs)]
 
---   Write a function countLeaves that takes a tree argument and returns the number of leaves in the tree.
---   countLeaves :: Tree2 a -> Int
---   Write a function sumTree that takes a tree of integers and returns the sum of all integers in the tree.
---   sumTree :: Tree2 Int -> Int
---   Write a function post2 that returns a postorder traversal of the nodes in the tree.
---   post2 :: Tree2 a -> [a]
---   Write a function depthK that returns all nodes that are at depth k in the tree. (A tree with only a root node is defined to have depth=1.) The order that the nodes are returned does not matter.
---   depthK :: Int -> Tree2 a -> [a]
+--7. Write a function countLeaves that takes a tree argument and returns the number of leaves in the tree.
+countLeaves :: Tree2 a -> Int
+countLeaves (Leaf2 n) = 1
+countLeaves (Node2 []) = 0
+countLeaves (Node2 (x:xs)) = countLeaves x + countLeaves (Node2 xs)
+--8. Write a function sumTree that takes a tree of integers and returns the sum of all integers in the tree.
+sumTree :: Tree2 Int -> Int
+sumTree (Leaf2 n) = n
+sumTree (Node2 []) = 0
+sumTree (Node2 (x:xs)) = sumTree x + sumTree (Node2 (xs))
+--9. Write a function post2 that returns a postorder traversal of the nodes in the tree.
+post2 :: Tree2 a -> [a]
+post2 (Leaf2 n) = [n]
+post2 (Node2 []) = []
+post2 (Node2 (x:xs)) =  post2 x ++ post2 (Node2 xs)
+--10. Write a function depthK that returns all nodes that are at depth k in the tree. (A tree with only a root node is defined to have depth=1.) The order that the nodes are returned does not matter.
+depthK :: Int -> Tree2 a -> [a]
+depthK 0 (Leaf2 n) = []
+depthK 1 (Leaf2 n) = [n]
+--depthK n (Node2 (x:xs)) = 1 + depthK x + 
