@@ -25,3 +25,66 @@ data Nat = Zero | Succ Nat
 nat2Int :: Nat -> Int --maybe usefull for the final
 nat2Int Zero = 0
 nat2Int (Succ n) = 1 + nat2Int (n)
+
+add :: Nat -> Nat -> Nat
+add Zero n = n
+add (Succ m) n = add m (Succ n)
+
+
+-- Class note April 11
+-- Classes
+
+-- type Classes is used to define a set of operations (similar to an interface in java)
+-- class in haskell is a set or collection of types or multiple types
+-- members of a class, called instances
+-- for example Eq a, for a to belong in the Eq class 'a' haveto satisfy the definition for (==) and (/=)
+-- to belong to a class an instanc must provide the definition for every operation that the class specifying that it need a definition for
+-- polymorphic fn's vs overloaded fn's
+-- length :: [a] -> Int --this is a polymorphic function becuase it works on any data type, it works the same for any data type
+-- (+) --function is overloaded (haskell refer to this as ad-hoc polymorphism) the underline code for addition may change depends on the data type that you are passing in, it does not work with all data type
+
+--elem :: Eq a => a -> [a] -> Bool -- a has to be an instanced of Eq and 'a' in [a] need ot be the same data type as 'a'
+
+data Shape = Circle Int | Rect Int Int | Square Int --Creating our own data type as an instance of Eq
+    deriving (Show, Eq) --This line is magicall because it will automatically make the data type we just created, become instance of Eq and we dont have to do the part right after for defining instance of Eq
+-- instance Eq Shape where
+--     (Circle r1) == (Circle r2)    = r1 == r2
+--     (Rect r1 r2) == (Rect r3 r4)  = r1 == r3 && r2 == r4
+--     (Square r1) == (Square r2)    = r1 == r2
+--     (Rect r1 r2) == (Square r3)   = r1 == r2 && r1 == r3 
+--     (Square r3) == (Rect r1 r2)   = r1 == r2 && r1 == r3
+--     _ == _                        = False
+    --shape1 /= shape2              = not (shape1 == shape2) --This line is not needed because Eq have a default def for /= because they ar emutually recursive we will only have to define the definition for either == or /=, not both
+
+-- class Eq a where
+--     (==), (/=) :: a -> a -> Bool
+--     x == y    = not (x /= y)
+--     x /= y    = not (x == y)
+
+-- class Show a where
+--     show :: a -> String
+-- data Roman = Roman Int
+-- instance Show Roman where
+--     show (Roman n)
+--         | n >= 1 && n <= 3     = replicate n "I"
+--         | n == 4               = "IV"
+--         | n == 5               = "V"
+--         | n > 5 && n < 9       = "V" ++ (replicate (n - 5) "I")
+--         | n == 9               = "IX"
+--         | n == 10              = "X"
+
+
+--Create my own class
+class Listable a where
+    toList :: a -> [Int]
+
+-- class of things
+--     that can be converted to a list of ints
+
+instance Listable Int where
+    toList x = [x]
+instance Listable Bool where
+    toList True = [1]
+    toList False = [0]
+instance Listable [Int] where
+    toList xs = xs

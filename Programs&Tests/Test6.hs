@@ -56,16 +56,21 @@ unitTests = testGroup "Unit tests"
       testCase "test3f" $ assertEqual [] 21 (sumpositives (ts !! 5)),
 
       testCase "test4a" $ assertEqual [] 0 (countInteriorNodes (ts !! 0)),
-      testCase "test4b" $ assertEqual [] 0 (countInteriorNodes (ts !! 1)),
-      testCase "test4c" $ assertEqual [] 1 (countInteriorNodes (ts !! 2)),
-      testCase "test4d" $ assertEqual [] 1 (countInteriorNodes (ts !! 3)),
-      testCase "test4e" $ assertEqual [] 2 (countInteriorNodes (ts !! 4)),
-      testCase "test4f" $ assertEqual [] 3 (countInteriorNodes (ts !! 5)),
+      testCase "test4b" $ assertEqual [] 1 (countInteriorNodes (ts !! 1)),
+      testCase "test4c" $ assertEqual [] 2 (countInteriorNodes (ts !! 2)),
+      testCase "test4d" $ assertEqual [] 2 (countInteriorNodes (ts !! 3)),
+      testCase "test4e" $ assertEqual [] 3 (countInteriorNodes (ts !! 4)),
+      testCase "test4f" $ assertEqual [] 4 (countInteriorNodes (ts !! 5)),
 
       testCase "test5a" $ assertEqual [] 1 (depth (ts !! 0)),
       testCase "test5b" $ assertEqual [] 2 (depth (ts !! 1)),
       testCase "test5c" $ assertEqual [] 3 (depth (ts !! 2)),
       testCase "test5d" $ assertEqual [] 3 (depth (ts !! 3)),
       testCase "test5e" $ assertEqual [] 3 (depth (ts !! 4)),
-      testCase "test5f" $ assertEqual [] 4 (depth (ts !! 5))
+      testCase "test5f" $ assertEqual [] 4 (depth (ts !! 5)),
+
+      testCase "test6a" $ assertEqual [] True (occurs 0 (ts' !! 0)),
+      testCase "test6b" $ assertEqual [] False (occurs 3 (ts' !! 1)),
+      testCase "test6c" $ assertEqual [] True (occurs 3 (ts' !! 2))
+
   ]

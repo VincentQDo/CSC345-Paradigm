@@ -29,18 +29,17 @@ countInteriorNodes (Node1 left r right) = 1 + countInteriorNodes left + countInt
 -- 5. Write a function depth that returns the depth of a tree. (A tree with only a root node is defined to have depth=1.)
 depth :: Tree1 -> Int
 depth (Leaf1 n) = 1
-depth tree = 1 + maximum [depth n2, depth n3]
+depth (Node1 n2 r n3) = 1 + maximum [depth n2, depth n3]
+
 
 data Tree2 a = Leaf2 a
              | Node2 [Tree2 a]
 
-t2 :: Tree2 a
-t2 = Node2 [Node2 [Leaf2 2, Leaf2 3, Leaf2 7], Leaf2 5, Node2 [Leaf2 4, Leaf2 6]]
 --6. Write a function occurs that returns whether a given argument is present in a given tree.
 occurs :: Eq a => a -> Tree2 a -> Bool
 occurs n (Leaf2 x) = n == x
 occurs n (Node2 []) = False
-occurs n (Node2 (x:xs)) = or [occurs x, occurs xs]
+occurs n (Node2 (x:xs)) = or [occurs n x, occurs n (Node2 xs)]
 
 --   Write a function countLeaves that takes a tree argument and returns the number of leaves in the tree.
 --   countLeaves :: Tree2 a -> Int
