@@ -81,7 +81,3 @@ post2 (Node2 (x:xs)) =  post2 x ++ post2 (Node2 xs)
 depthK :: Int -> Tree2 a -> [a]
 depthK 0 (Leaf2 n) = []
 depthK 1 (Leaf2 n) = [n]
---depthK n (Node2 (x:xs)) = 1 + depthK x + 
-=======
-countInteriorNodes tree =  (div (length (postorder tree)) 2) -1
->>>>>>> master
