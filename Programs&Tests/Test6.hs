@@ -34,12 +34,10 @@ ts' = [Leaf2 0, Node2 [], Node2 [Leaf2 2, Leaf2 3, Leaf2 4, Node2 [Leaf2 5, Leaf
 
 testTree2 :: (Num a) => Tree2 a
 testTree2 = Node2 [Leaf2 1, testTree2Node2, testTree2Node3]
-
 testTree2Node2 :: (Num a) =>  Tree2 a
 testTree2Node2 = Node2 [testTree2Node2Node1, Leaf2 4]
 testTree2Node2Node1 :: (Num a) =>  Tree2 a
 testTree2Node2Node1 = Node2 [(Leaf2 2), (Leaf2 3)]
-
 testTree2Node3 :: (Num a) =>  Tree2 a
 testTree2Node3 = Node2 [testTree2Node3Sub]
 testTree2Node3Sub :: (Num a) =>  Tree2 a
