@@ -30,7 +30,7 @@ countInteriorNodes (Node1 left r right) = 1 + countInteriorNodes left + countInt
 depth :: Tree1 -> Int
 depth (Leaf1 n) = 1
 depth (Node1 n2 r n3) = 1 + maximum [depth n2, depth n3]--this method will keep ultilize maximum to decide if the left or right node have a bigger depth then it will return that plus 1 for the root node
-{- #####################---EXAMPLE END HERE---#####################
+{- #####################---EXAMPLE START HERE---#####################
 TREE CREATION:
 tree1 = (Leaf1 2) 1 (tree1Node2)
 tree1Node2 = tree1Node2Node1 3 (Leaf1 5)
