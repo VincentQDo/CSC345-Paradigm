@@ -18,8 +18,8 @@ postorder (Leaf1 n) = [n]
 postorder (Node1 n2 root n3) =  postorder n2 ++ postorder n3 ++ [root]--same as before but just different order
 
 --3. Write a function sumPositives that takes a tree argument and returns the sum of positive integers in the tree.
-sumpositives :: Tree1 -> Int
-sumpositives tree = sum [x | x <- postorder tree, x > 0]--reuse one of the previous function that return the tree as a list of Int and just sum all the value up if its a positive number
+sumPositives :: Tree1 -> Int
+sumPositives tree = sum [x | x <- postorder tree, x > 0]--reuse one of the previous function that return the tree as a list of Int and just sum all the value up if its a positive number
 
 -- 4. Write a function countInteriorNodes that returns the number of interior nodes in the given tree.
 countInteriorNodes :: Tree1 -> Int
