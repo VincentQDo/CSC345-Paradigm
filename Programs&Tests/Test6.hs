@@ -116,10 +116,19 @@ unitTests = testGroup "Unit tests"
       testCase "test9d" $ assertEqual [] [5,6,2,3,4] (post2 (ts' !! 3)),
       testCase "test9e" $ assertEqual [] [1,2,3,4,5,6,7,8,9,10,11,12] (post2 testTree2),
 
+
       testCase "test10a" $ assertEqual [] [] (depthK 1 testTree2),
       testCase "test10b" $ assertEqual [] [1] (depthK 2 testTree2),
       testCase "test10c" $ assertEqual [] [4] (depthK 3 testTree2),
       testCase "test10d" $ assertEqual [] [2,3,8,9] (depthK 4 testTree2),
-      testCase "test10e" $ assertEqual [] [5,6,7,10,11,12] (depthK 5 testTree2)
+      testCase "test10e" $ assertEqual [] [5,6,7,10,11,12] (depthK 5 testTree2),
+      testCase "test10f" $ assertEqual [] [] (depthK 5 (ts' !! 0)),
+      testCase "test10g" $ assertEqual [] [] (depthK 5 (ts' !! 1)),
+      testCase "test10h" $ assertEqual [] [] (depthK 1 (ts' !! 1)),
+      testCase "test10i" $ assertEqual [] [0] (depthK 1 (ts' !! 0))
+
+
+
+
 
   ]
