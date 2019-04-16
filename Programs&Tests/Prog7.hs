@@ -9,8 +9,8 @@ unique :: Eq a => [a] -> [a]
 unique (x:xs) = 
 --Consider the following type:
 data Expr1 = Val1 Int
-           | Add1 Expr Expr
-           | Sub1 Expr Expr
+           | Add1 Expr1 Expr1
+           | Sub1 Expr1 Expr1
 --Write a function value1 that evaluates an expression.
 value1 :: Expr1 -> Int
 --Create a Expr2 type constructor that also supports multiplication and division, in addition to the int literal, addition, and subtraction.

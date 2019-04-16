@@ -77,5 +77,5 @@ depthK 1 (Leaf2 m) = [m] --this base case will return the value of the leaf node
 depthK 1 (Node2 xs) = [] --this case will return an empty list if we are at the correct depth and we are on an interior node
 depthK n (Leaf2 m) = [] --this case is for when we are not yet at the depth we want so we will return empty list
 depthK n (Node2 []) = [] --this case is here to stop the recursion from going if we are not at the depth we want yet and there are nothing left to check
-depthK n (Node2 (x:xs)) = depthK (n-1) x ++ depthK (n) (Node2 xs) -- depthK (n-1) x will check on the first child node of the root, we will call this n1, then it will keep checking the children of n1 until it reach a base case
+depthK n (Node2 (x:xs)) = depthK (n-1) x ++ depthK n (Node2 xs) -- depthK (n-1) x will check on the first child node of the root, we will call this n1, then it will keep checking the children of n1 until it reach a base case
 --depthK (n) (Node2 xs) will be responsible for checking on the rest of the children nodes of the root
