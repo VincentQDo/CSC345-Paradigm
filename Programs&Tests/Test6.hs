@@ -127,8 +127,4 @@ unitTests = testGroup "Unit tests"
       testCase "test10h" $ assertEqual [] [] (depthK 1 (ts' !! 1)),
       testCase "test10i" $ assertEqual [] [0] (depthK 1 (ts' !! 0))
 
-
-
-
-
   ]

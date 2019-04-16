@@ -1,18 +1,18 @@
 --Class note today
 
-occurs :: Eq a => a -> Tree a -> Bool --a need to be a member of the Eq class
-occurs x (Leaf y) = x == y
-occurs x (Node left y right) = x == y || occurs x left || occurs x right --what does || do again?
+-- occurs :: Eq a => a -> Tree a -> Bool --a need to be a member of the Eq class
+-- occurs x (Leaf y) = x == y
+-- occurs x (Node left y right) = x == y || occurs x left || occurs x right --what does || do again?
 
-flatten :: Tree a -> [a] --will produce a inorder traversal
-flatten (Leaf a) = [a]
-flatten (Node left r right) = flatten left ++ [r] ++ flatten right
+-- flatten :: Tree a -> [a] --will produce a inorder traversal
+-- flatten (Leaf a) = [a]
+-- flatten (Node left r right) = flatten left ++ [r] ++ flatten right
 
 -- data Tree1 a = Leaf1 a | Node1 (Tree1 a)(Tree1 a) --data only on leaf in this tree
 -- data Tree2 a = Leaf2 | Node2 (Tree1 a) a (Tree1 a) --data only in interior node in this tree
 -- data Tree3 a b = Leaf3 b | Node3 (Tree1 a b) a (Tree1 a b) --multiple parameterized data type on Tree3
 -- data Tree4 a = Leaf4 a | Node4 [Tree4 a]
-
+{-# LANGUAGE FlexibleInstances #-}
 data Nat = Zero | Succ Nat
 -- this data type would produce
 -- 0 = Zero
@@ -74,13 +74,13 @@ data Shape = Circle Int | Rect Int Int | Square Int --Creating our own data type
 
 --Create my own class
 class Listable a where
-    toList :: Listable a => a -> [Int]
+   toList :: Listable a => a -> [Int]
 
 -- class of things
 --     that can be converted to a list of ints
 
 
-data Tree a = Leaf a | Node a (Tree a) (Tree a)
+data Tree a = Empty | Node a (Tree a) (Tree a)
 
 instance Listable Int where
     toList x = [x]
@@ -89,4 +89,35 @@ instance Listable Bool where
     toList False = [0]
 instance Listable [Int] where
     toList xs = xs
+--April 16th, 2019
+instance Listable (Tree Int) where
+    toList Empty = []
+    toList (Node x l r) = (toList l) ++ [x] ++ (toList r)
 
+
+sumL xs = sum (toList xs)
+foo :: (Listable a, Ord a) => a -> a -> Bool --a have to be an instance of 2 classes which is Ord (govern >< and Listable)
+foo xs1 xs2 = sum(toList xs1) == sum (toList xs2) && xs1 < xs2
+{-
+First-Class functions
+-functions can be stored in variables
+-fn's can be passed as arguments and returned by functions
+x = function
+-}
+doubleAll :: [Int] -> [Int]
+doubleAll xs = [2*x | x <- xs]
+tripleAll :: [Int] -> [Int]
+tripleAll [] = []
+tripleAll (x:xs) = (3 * x) : (tripleAll xs)
+double :: Int -> Int
+double x = 2 * x
+triple :: Int -> Int
+triple x = 3 * x
+-- mapInteger :: function -> [Int] -> [Int]
+mapInteger _ [] = []
+mapInteger f (x:xs) = f x :: mapInteger f xs
+{-
+mapping
+1) name a function
+
+-}
