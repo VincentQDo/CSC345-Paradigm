@@ -113,7 +113,7 @@ double :: Int -> Int
 double x = 2 * x
 triple :: Int -> Int
 triple x = 3 * x
--- mapInteger :: function -> [Int] -> [Int]
+mapInteger :: (Int -> Int) -> [Int] -> [Int] -- (Int->Int) is a function
 mapInteger _ [] = []
 mapInteger f (x:xs) = f x :: mapInteger f xs
 {-
