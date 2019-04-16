@@ -32,19 +32,13 @@ ts = [Leaf1 0, Node1 (Leaf1 3) 4 (Leaf1 6), Node1 (Node1 (Leaf1 4) 2 (Leaf1 5)) 
 ts' :: [Tree2 Int]
 ts' = [Leaf2 0, Node2 [], Node2 [Leaf2 2, Leaf2 3, Leaf2 4, Node2 [Leaf2 5, Leaf2 6]], Node2 [Node2 [Leaf2 5, Leaf2 6], Leaf2 2, Leaf2 3, Leaf2 4]]
 
-testTree2 :: (Num a) => Tree2 a
+--Creditted to DJ for this test tree
 testTree2 = Node2 [Leaf2 1, testTree2Node2, testTree2Node3]
-testTree2Node2 :: (Num a) =>  Tree2 a
 testTree2Node2 = Node2 [testTree2Node2Node1, Leaf2 4]
-testTree2Node2Node1 :: (Num a) =>  Tree2 a
 testTree2Node2Node1 = Node2 [(Leaf2 2), (Leaf2 3)]
-testTree2Node3 :: (Num a) =>  Tree2 a
 testTree2Node3 = Node2 [testTree2Node3Sub]
-testTree2Node3Sub :: (Num a) =>  Tree2 a
 testTree2Node3Sub = Node2 [testTree2Node3SubNode1, Leaf2 8, Leaf2 9, testTree2Node3SubNode4]
-testTree2Node3SubNode1 :: (Num a) =>  Tree2 a
 testTree2Node3SubNode1 = Node2 [ (Leaf2 5), Leaf2 6, Leaf2 7]
-testTree2Node3SubNode4 :: (Num a) =>  Tree2 a
 testTree2Node3SubNode4 =  Node2 [Leaf2 10, Leaf2 11, Leaf2 12]
 
 testTree5 :: (Num a) => Tree2 a

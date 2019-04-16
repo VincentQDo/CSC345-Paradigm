@@ -116,8 +116,30 @@ triple x = 3 * x
 mapInteger :: (Int -> Int) -> [Int] -> [Int] -- (Int->Int) is a function
 mapInteger _ [] = []
 mapInteger f (x:xs) = f x :: mapInteger f xs
-{-
-mapping
-1) name a function
+mapInteger f xs = [f x| x<-xs]
+sixteen :: [Int]
+sixteen = mapInteger double [3,5]
 
+{-mapping property is already defined in haskell, it is simply called map
+map :: (a -> b) -> [a] -> [b]
+map _ [] = []
+map f (x:xs) = f x : map f xs
+filter :: (a -> b) -> [a] -> [b]
+filter _ [] = []
+filter p (x:xs)
+      |p x       = x : filter p xs
+      |otherwise = filter p xs
+filter p xs = [x | x <- xs, p x] --either 132 or 129 not both
 -}
+
+[[Int]] => [[1,2,3],[4,5]]
+map (map double) [[1,2,3],[4,5]]
+--work outside in, apply outter map
+[map double [1,2,3], map double [4,5]]
+--apply the innter map
+[[2,4,6],[8,10]]
+--higher order function
+-- >map :: apply a given function to each item in a list
+-- >filter :: select all element from a list that satisfy a given predicate
+-- digits xs = [x | x<-xs, isDigit x]
+-- digits xs = filter isDigit xs --either 145 or 144, 145 uses higher order function which is better tha nlist comp because it already is implemented in list comp.
