@@ -1,7 +1,5 @@
 --Class note today
 
-data Tree a = Leaf a | Node (Tree a) a (Tree a)
-
 occurs :: Eq a => a -> Tree a -> Bool --a need to be a member of the Eq class
 occurs x (Leaf y) = x == y
 occurs x (Node left y right) = x == y || occurs x left || occurs x right --what does || do again?
@@ -76,10 +74,13 @@ data Shape = Circle Int | Rect Int Int | Square Int --Creating our own data type
 
 --Create my own class
 class Listable a where
-    toList :: a -> [Int]
+    toList :: Listable a => a -> [Int]
 
 -- class of things
 --     that can be converted to a list of ints
+
+
+data Tree a = Leaf a | Node a (Tree a) (Tree a)
 
 instance Listable Int where
     toList x = [x]
@@ -88,3 +89,4 @@ instance Listable Bool where
     toList False = [0]
 instance Listable [Int] where
     toList xs = xs
+
