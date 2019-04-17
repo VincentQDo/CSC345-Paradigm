@@ -41,40 +41,35 @@ value1 expr = case expr of
 -- 3. Create a Expr2 type constructor that also supports 
 -- multiplication and division, in addition to the int literal, addition, 
 -- and subtraction.
--- data Expr2 = Expr1 --why does this not work
-data Expr2 = Val2 Int
-           | Add2 Expr2 Expr2
-           | Sub2 Expr2 Expr2 --can i replace 45-47 with 44?
+data Expr2 = Expr1
            | Multi2 Expr2 Expr2
            | Div2 Expr2 Expr2
 
 --4. Write a function value2 that evaluates an expression, but returns Nothing if there is a division by zero scenario.
 value2 :: Expr2 -> Maybe Int
 value2 expr = case expr of
-    Div2 _ (Val2 0) -> Nothing
-    Val2 n -> Just n
-    Add2 n m -> maybeAdd (value2 n) (value2 m)
-    Sub2 n m -> maybeSub (value2 n) (value2 m)
-    Multi2 n m -> maybeMulti (value2 n) (value2 m)
-    Div2 n m -> maybeDiv (value2 n) (value2 m)
+    --Div2 _ (Val1 0) -> Nothing
+    Val1 n -> Just n
+    Add1 n m -> Just (value1 (Add1 n m))
 
-maybeAdd :: Maybe Int -> Maybe Int -> Maybe Int
-maybeAdd _ Nothing = Nothing
-maybeAdd Nothing _ = Nothing
-maybeAdd (Just n) (Just m) = Just (n+m)
-maybeSub :: Maybe Int -> Maybe Int -> Maybe Int
-maybeSub _ Nothing = Nothing
-maybeSub Nothing _ = Nothing
-maybeSub (Just n) (Just m) = Just (n-m)
-maybeDiv :: Maybe Int -> Maybe Int -> Maybe Int
-maybeDiv _        Nothing   = Nothing
-maybeDiv Nothing  _         = Nothing
-maybeDiv _        (Just 0)  = Nothing
-maybeDiv (Just n) (Just m)  = Just (div n m)
-maybeMulti :: Maybe Int -> Maybe Int -> Maybe Int
-maybeMulti _ Nothing = Nothing
-maybeMulti Nothing _ = Nothing
-maybeMulti (Just n) (Just m) = Just (n*m)
+
+-- maybeAdd :: Maybe Int -> Maybe Int -> Maybe Int
+-- maybeAdd _ Nothing = Nothing
+-- maybeAdd Nothing _ = Nothing
+-- maybeAdd (Just n) (Just m) = Just (n+m)
+-- maybeSub :: Maybe Int -> Maybe Int -> Maybe Int
+-- maybeSub _ Nothing = Nothing
+-- maybeSub Nothing _ = Nothing
+-- maybeSub (Just n) (Just m) = Just (n-m)
+-- maybeDiv :: Maybe Int -> Maybe Int -> Maybe Int
+-- maybeDiv _        Nothing   = Nothing
+-- maybeDiv Nothing  _         = Nothing
+-- maybeDiv _        (Just 0)  = Nothing
+-- maybeDiv (Just n) (Just m)  = Just (div n m)
+-- maybeMulti :: Maybe Int -> Maybe Int -> Maybe Int
+-- maybeMulti _ Nothing = Nothing
+-- maybeMulti Nothing _ = Nothing
+-- maybeMulti (Just n) (Just m) = Just (n*m)
 
 {-
 value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
