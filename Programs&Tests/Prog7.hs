@@ -27,21 +27,75 @@ data Expr1 = Val1 Int
            | Sub1 Expr1 Expr1
 --2. Write a function value1 that evaluates an expression.
 value1 :: Expr1 -> Int
-value1 exp = case exp of
+value1 expr = case expr of
     Val1 n                      -> n
     Add1 (Val1 n) (Val1 m)      -> n+m
     Sub1 (Val1 n) (Val1 m)      -> n-m
-    Add1 exp (Val1 n)           -> (value1 exp)+n
-    Add1 (Val1 n) exp           -> n+(value1 exp)
-    Sub1 exp (Val1 n)           -> (value1 exp)-n
-    Sub1 (Val1 n) exp           -> n-(value1 exp)
+    Add1 expr (Val1 n)           -> (value1 expr)+n
+    Add1 (Val1 n) expr           -> n+(value1 expr)
+    Sub1 expr (Val1 n)           -> (value1 expr)-n
+    Sub1 (Val1 n) expr           -> n-(value1 expr)
     Add1 exp1 exp2              -> (value1 exp1)+(value1 exp2)
     Sub1 exp1 exp2              -> (value1 exp1)-(value1 exp2)
 
-{-
---3. Create a Expr2 type constructor that also supports multiplication and division, in addition to the int literal, addition, and subtraction.
+-- 3. Create a Expr2 type constructor that also supports 
+-- multiplication and division, in addition to the int literal, addition, 
+-- and subtraction.
+-- data Expr2 = Expr1 --why does this not work
+data Expr2 = Val2 Int
+           | Add2 Expr2 Expr2
+           | Sub2 Expr2 Expr2 --can i replace 45-47 with 44?
+           | Multi2 Expr2 Expr2
+           | Div2 Expr2 Expr2
+
 --4. Write a function value2 that evaluates an expression, but returns Nothing if there is a division by zero scenario.
 value2 :: Expr2 -> Maybe Int
+value2 expr = case expr of
+    Div2 _ (Val2 0) -> Nothing
+    Val2 n -> Just n
+    Add2 n m -> maybeAdd (value2 n) (value2 m)
+    Sub2 n m -> maybeSub (value2 n) (value2 m)
+    Multi2 n m -> maybeMulti (value2 n) (value2 m)
+    Div2 n m -> maybeDiv (value2 n) (value2 m)
+
+maybeAdd :: Maybe Int -> Maybe Int -> Maybe Int
+maybeAdd _ Nothing = Nothing
+maybeAdd Nothing _ = Nothing
+maybeAdd (Just n) (Just m) = Just (n+m)
+maybeSub :: Maybe Int -> Maybe Int -> Maybe Int
+maybeSub _ Nothing = Nothing
+maybeSub Nothing _ = Nothing
+maybeSub (Just n) (Just m) = Just (n-m)
+maybeDiv :: Maybe Int -> Maybe Int -> Maybe Int
+maybeDiv _        Nothing   = Nothing
+maybeDiv Nothing  _         = Nothing
+maybeDiv _        (Just 0)  = Nothing
+maybeDiv (Just n) (Just m)  = Just (div n m)
+maybeMulti :: Maybe Int -> Maybe Int -> Maybe Int
+maybeMulti _ Nothing = Nothing
+maybeMulti Nothing _ = Nothing
+maybeMulti (Just n) (Just m) = Just (n*m)
+
+{-
+value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
+maybeMulti (value2 (Div2 Val2 5 Val2 10)) (value2 (Div2 Val2 5 Val2 0))
+
+
+expr27 = Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
+
+value2 Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
+Just (value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0))
+
+value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
+value2' Div2 Val2 5 Val2 10 *  value2' Div2 Val2 5 Val2 0
+div (value2' Val2 5) (value2' Val2 10) * div (value2' Val2 5) (value2' Val2 0)
+div 5 10 * div 5 0
+
+expr25 = Div2 Val2 5 Val2 10
+expr26 = Div2 Val2 5 Val2 0
+-}
+
+{-
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
 show :: Expr2 -> String
 --6. Write a function piglatinize that returns a word into its piglatin form: if it begins with a vowel, add to the end "yay", else move non-vowels to the end of the string until a vowel is at the front and then add to the end "ay". The word arguments are guaranteed to have a vowel (a, e, i, o, or u) and not begin with the letter y.
