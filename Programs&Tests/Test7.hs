@@ -65,6 +65,35 @@ First time user type in the command below
    subTree5 = Node subTree1 subTree2 --balanced, 4 leaves, 2 on both sides
    subTree6 = Node subTree1 subTree4 --not balanced, 7 leaves, 2 left, 5 right
    
+   value31 = Val3 5
+   value32 = Val3 3
+   boolExpr1 = BoolLit True
+   boolExpr2 = BoolLit False
+   boolExpr3 = EqualTo value31 value32 --False
+   boolExpr4 = LessThan value31 value32 --False
+   boolExpr5 = LessThan value32 value31 --True
+   boolExpr6 = Or boolExpr1 boolExpr2 --True
+   boolExpr7 = Or boolExpr1 boolExpr3 --True
+   boolExpr8 = Or boolExpr3 boolExpr4 --False
+   boolExpr9 = Or boolExpr6 boolExpr4 --True
+   boolExpr10 = Or boolExpr8 boolExpr9 --True
+
+   expr31 = Add3 value31 value32 --8
+   expr32 = Sub3 value31 value32 --2
+   expr33 = Multi3 value31 value32 --15
+   expr34 = Div3 value31 value32 --1
+   expr35 = If boolExpr1 value31 value32 --5
+   expr36 = If boolExpr2 value31 value32 --3
+   expr37 = If boolExpr3 value31 value32 --3
+   expr38 = If boolExpr4 value31 value32 --3
+   expr39 = If boolExpr5 value31 value32 --5
+   expr310 = If boolExpr6 expr34 expr33 --1
+   expr311 = If boolExpr7 expr33 expr310 --15
+   expr312 = If boolExpr8 expr310 expr33 --15
+   expr313 = If boolExpr9 expr311 expr31 --15
+   expr314 = If boolExpr10 expr313 expr310 --15
+
+
    unitTests = testGroup "Unit tests"
      [
    
@@ -118,13 +147,28 @@ First time user type in the command below
          testCase "test7e" $ assertEqual [] True (balanced subTree5),
          testCase "test7f" $ assertEqual [] False (balanced subTree6),
          testCase "test7g" $ assertEqual [] False (balanced testTree),
-         testCase "test7h" $ assertEqual [] True (balanced leaf1)
+         testCase "test7h" $ assertEqual [] True (balanced leaf1),
 
+         testCase "test9a" $ assertEqual [] True (bEval boolExpr1),
+         testCase "test9b" $ assertEqual [] False (bEval boolExpr2),
+         testCase "test9c" $ assertEqual [] False (bEval boolExpr3),
+         testCase "test9d" $ assertEqual [] False (bEval boolExpr4),
+         testCase "test9e" $ assertEqual [] True (bEval boolExpr5),
 
-
-
-
-
+         testCase "test10a" $ assertEqual [] (Just 8) (value3 expr31),
+         testCase "test10b" $ assertEqual [] (Just 2) (value3 expr32),
+         testCase "test10c" $ assertEqual [] (Just 15) (value3 expr33),
+         testCase "test10d" $ assertEqual [] (Just 1) (value3 expr34),
+         testCase "test10e" $ assertEqual [] (Just 5) (value3 expr35),
+         testCase "test10f" $ assertEqual [] (Just 3) (value3 expr36),
+         testCase "test10g" $ assertEqual [] (Just 3) (value3 expr37),
+         testCase "test10h" $ assertEqual [] (Just 3) (value3 expr38),
+         testCase "test10i" $ assertEqual [] (Just 5) (value3 expr39),
+         testCase "test10j" $ assertEqual [] (Just 1) (value3 expr310),
+         testCase "test10k" $ assertEqual [] (Just 15) (value3 expr311),
+         testCase "test10l" $ assertEqual [] (Just 15) (value3 expr312),
+         testCase "test10m" $ assertEqual [] (Just 15) (value3 expr313),
+         testCase "test10n" $ assertEqual [] (Just 15) (value3 expr314)
 
      ]
    

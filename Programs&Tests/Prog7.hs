@@ -87,6 +87,12 @@ instance Show Expr2 where
     show (Sub2 n m) = "(" ++ show n ++ ['-'] ++ show m ++ ")"
     show (Multi2 n m) = "(" ++ show n ++ ['*'] ++ show m ++ ")"
     show (Div2 n m) = "(" ++ show n ++ ['/'] ++ show m ++ ")"
+
+-- show' (Val2 n) = show n
+-- show' (Add2 n m) = "(" ++ show' n ++ ['+'] ++ show' m ++ ")"
+-- show' (Sub2 n m) = "(" ++ show' n ++ ['-'] ++ show' m ++ ")"
+-- show' (Multi2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
+-- show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
 --TODO: get rid of the first and last "()" in number 5
 --TODO: foldable here too maybe, althought i dont think foldable is useful here
 
@@ -121,20 +127,40 @@ countLeaf :: Tree a -> Int
 countLeaf (Leaf a) = 1
 countLeaf (Node n1 n2) = countLeaf n1 + countLeaf n2
 
-{-
 --8. Now we will extend the Expr example above to contain conditional expressions. Take everything from Expr2, and create an Expr3, like so:
 data Expr3 = Val3 Int
-           | ...
-           | If BExpr3 Expr3 Expr3
---The If data constructor (If BExpr3 Expr3 Expr3) will evaluate the boolean expression (first argument) and will return the value of the second argument if it is true, else it will return the third argument. Define the BExpr3 type as the following:
+            | Add3 Expr3 Expr3
+            | Sub3 Expr3 Expr3
+            | Multi3 Expr3 Expr3
+            | Div3 Expr3 Expr3
+            | If BExpr3 Expr3 Expr3
+--The If data constructor (If BExpr3 Expr3 Expr3) will evaluate the boolean expression 
+--(first argument) and will return the value of the second argument if it is true, 
+--else it will return the third argument. Define the BExpr3 type as the following:
 data BExpr3 = BoolLit Bool
             | Or BExpr3 BExpr3
             | EqualTo Expr3 Expr3
             | LessThan Expr3 Expr3
 --9. Write a function bEval :: BExpr3 -> Bool that evaluates instances of the above boolean expression.
 bEval :: BExpr3 -> Bool
-{-
+bEval (BoolLit n) = n
+bEval (Or n m) = or [bEval n, bEval m]
+bEval (EqualTo n m) = value3 n == value3 m
+bEval (LessThan n m) = value3 n < value3 m
 --10. Write a function value3 that evaluates an expression.
 value3 :: Expr3 -> Maybe Int
+value3 expr = case expr of
+    Div3 _ (Val3 0) -> Nothing
+    Val3 n -> Just n
+    Add3 n m -> maybeAdd (value3 n) (value3 m)
+    Sub3 n m -> maybeSub (value3 n) (value3 m)
+    Multi3 n m -> maybeMulti (value3 n) (value3 m)
+    Div3 n m -> maybeDiv (value3 n) (value3 m)
+    If b n m -> case bEval b of
+        True -> value3 n
+        False -> value3 m
 
--}
+
+--If Or (EqualTo (Val3 5) (Val3 2)) (LessThan (Val3 5) (Val3 2))
+--         False                      True
+-- True
