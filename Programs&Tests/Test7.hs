@@ -46,9 +46,9 @@ First time user type in the command below
    expr23 = Add2 expr21 expr22 --(5+10) + (5-10)
    expr24 = Multi2 val21 val22 --5*10
    expr25 = Div2 val21 val22 --5/10
-   expr26 = Div2 val21 val23 -- 10/0
-   expr27 = Multi2 expr25 expr26 -- (5/10) * (10/0)
-   expr28 = Multi2 expr21 expr22 -- (5+10) * (5-10)
+   expr26 = Div2 val21 val23 -- 5/0
+   expr27 = Multi2 expr25 expr26 -- (5/10) * (5/0)
+   expr28 = Multi2 expr21 expr22 -- (5+10) * (5-10) 
    expr29 = Multi2 expr23 expr24 -- ((5+10) + (5-10)) * (5*10)
    expr30 = Add2 expr29 expr28 -- (((5+10) + (5-10)) * (5*10)) + ((5+10) * (5-10))
 
@@ -131,14 +131,18 @@ First time user type in the command below
          testCase "test5e" $ assertEqual [] "(5+10)+(5-10)" (show expr23),
          testCase "test5f" $ assertEqual [] "5*10" (show expr24),
          testCase "test5g" $ assertEqual [] "5/10" (show expr25),
-         testCase "test5h" $ assertEqual [] "10/0" (show expr26),
-         testCase "test5i" $ assertEqual [] "(5/10)*(10/0)" (show expr27),
+         testCase "test5h" $ assertEqual [] "5/0" (show expr26),
+         testCase "test5i" $ assertEqual [] "(5/10)*(5/0)" (show expr27),
          testCase "test5j" $ assertEqual [] "(5+10)*(5-10)" (show expr28),
          testCase "test5k" $ assertEqual [] "((5+10)+(5-10))*(5*10)" (show expr29),
          testCase "test5l" $ assertEqual [] "(((5+10)+(5-10))*(5*10))+((5+10)*(5-10))" (show expr30),
 
          testCase "test6a" $ assertEqual [] "eggyay" (piglatinize "egg"),
          testCase "test6b" $ assertEqual [] "eggray" (piglatinize "greg"),
+         testCase "test6a" $ assertEqual [] "aymay" (piglatinize "may"),
+         testCase "test6b" $ assertEqual [] "istinepray" (piglatinize "pristine"),
+         testCase "test6a" $ assertEqual [] "appleyay" (piglatinize "apple"),
+         testCase "test6b" $ assertEqual [] "ethanyay" (piglatinize "ethan"),
 
          testCase "test7a" $ assertEqual [] True (balanced subTree1),
          testCase "test7b" $ assertEqual [] True (balanced subTree2),

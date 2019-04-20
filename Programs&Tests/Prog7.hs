@@ -83,16 +83,14 @@ maybeMulti (Just n) (Just m) = Just (n*m)
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
 instance Show Expr2 where
     show (Val2 n) = show n
-    show (Add2 n m) = "(" ++ show n ++ ['+'] ++ show m ++ ")"
-    show (Sub2 n m) = "(" ++ show n ++ ['-'] ++ show m ++ ")"
-    show (Multi2 n m) = "(" ++ show n ++ ['*'] ++ show m ++ ")"
-    show (Div2 n m) = "(" ++ show n ++ ['/'] ++ show m ++ ")"
+    show n = init (tail (show' n))
 
--- show' (Val2 n) = show n
--- show' (Add2 n m) = "(" ++ show' n ++ ['+'] ++ show' m ++ ")"
--- show' (Sub2 n m) = "(" ++ show' n ++ ['-'] ++ show' m ++ ")"
--- show' (Multi2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
--- show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
+show' :: Expr2 -> String
+show' (Val2 n) = show n
+show' (Add2 n m) = "(" ++ show' n ++ ['+'] ++ show' m ++ ")"
+show' (Sub2 n m) = "(" ++ show' n ++ ['-'] ++ show' m ++ ")"
+show' (Multi2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
+show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
 --TODO: get rid of the first and last "()" in number 5
 --TODO: foldable here too maybe, althought i dont think foldable is useful here
 
