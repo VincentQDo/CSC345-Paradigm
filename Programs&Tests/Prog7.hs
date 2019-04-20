@@ -77,8 +77,8 @@ maybeMulti :: Maybe Int -> Maybe Int -> Maybe Int
 maybeMulti _ Nothing = Nothing
 maybeMulti Nothing _ = Nothing
 maybeMulti (Just n) (Just m) = Just (n*m)
---TODO: use foldable for this, not sure how it will work may need some help later so come back to this.
 
+--TODO: use foldable for this, not sure how it will work may need some help later so come back to this.
 
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
 instance Show Expr2 where
@@ -105,7 +105,12 @@ piglatinize (x:xs) = case x of
     'i' -> (x:xs) ++ "yay"
     'o' -> (x:xs) ++ "yay"
     'u' -> (x:xs) ++ "yay"
-    _   -> piglatinizeHelper (x:xs) ++ "ay" --this called a helper function in order to preserve the string as is and then add ay at the end of the recursive calls
+    'A' -> (x:xs) ++ "yay"
+    'E' -> (x:xs) ++ "yay"
+    'I' -> (x:xs) ++ "yay"
+    'O' -> (x:xs) ++ "yay"
+    'U' -> (x:xs) ++ "yay"
+    _   -> piglatinizeHelper (x:xs) ++ "ay" --this calls a helper function in order to preserve the string as is and then add ay at the end of the recursive calls
 piglatinizeHelper :: String -> String --this method is responsible for moving the non vowel char to the end and stop if it finds a vowel
 piglatinizeHelper (x:xs) = case x of
     'a' -> (x:xs)
@@ -113,6 +118,11 @@ piglatinizeHelper (x:xs) = case x of
     'i' -> (x:xs)
     'o' -> (x:xs)
     'u' -> (x:xs)
+    'A' -> (x:xs)
+    'E' -> (x:xs)
+    'I' -> (x:xs)
+    'O' -> (x:xs)
+    'U' -> (x:xs)
     _   -> piglatinizeHelper (xs ++ [x])
 
 -- Consider the following type of binary trees:
@@ -121,6 +131,7 @@ data Tree a = Leaf a | Node (Tree a) (Tree a)
 balanced :: Tree a -> Bool
 balanced (Leaf a) = True
 balanced (Node left right) = or [countLeaf left == (countLeaf right - 1), countLeaf right == (countLeaf left - 1), countLeaf left == countLeaf right]
+
 countLeaf :: Tree a -> Int
 countLeaf (Leaf a) = 1
 countLeaf (Node n1 n2) = countLeaf n1 + countLeaf n2
@@ -157,8 +168,3 @@ value3 expr = case expr of
     If b n m -> case bEval b of
         True -> value3 n
         False -> value3 m
-
-
---If Or (EqualTo (Val3 5) (Val3 2)) (LessThan (Val3 5) (Val3 2))
---         False                      True
--- True
