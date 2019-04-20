@@ -143,3 +143,101 @@ map (map double) [[1,2,3],[4,5]]
 -- >filter :: select all element from a list that satisfy a given predicate
 -- digits xs = [x | x<-xs, isDigit x]
 -- digits xs = filter isDigit xs --either 145 or 144, 145 uses higher order function which is better tha nlist comp because it already is implemented in list comp.
+
+
+-- April 18 2019
+--map and filter are higher level function
+sumDoubleEven :: [Int] -> Int
+sumDoubleEven xs = sum (map double (filter isEven xs)) --filter will return all the nubmer that is even, map will apply double to every number in the list and return that list, then we sum up all the elements.
+
+--zipWith is also a higher order function. this will take two lists and pattern patch them the same way with zip and it will also take a function as a first argument.
+zipWith f (x:xs) (y:xs) = f x y : zipWith f xs ys
+zipWith f _ _ = []
+
+
+
+foo :: Int -> Char -> Bool
+foo n _ = n == 1
+zipWith foo [1,2,3,4] ['a','B','c']
+[True, False, False]
+
+--zipWith :: (a -> b -> c) -> [a] -> [b] -> [c] like zip but apply a function to each of the element first then return the result of that function basically zip with a function
+--map :: (a -> b) -> [a] -> [b]
+--filter :: (a -> Bool) -> [a] -> [a]
+--all :: Foldable t => (a -> Bool) -> t a -> Bool similar with any but like an and
+--any :: Foldable t => (a -> Bool) -> t a -> Bool just like an or function as long as anything in the function is false return false but apply the predicate to each element first
+--takeWhile :: (a -> Bool) -> [a] -> [a] take any item that satisfy the predicate until u meet an item that does not.
+-- >takeWhile even [2,4,6,7,8] -> [2,4,6]
+--dropWhile :: (a -> Bool) -> [a] -> [a] like take while but the opposite
+-- >dropWhile even [2,4,6,7,8] -> [7,8]
+
+{-
+Folding chapter 10.3 in the thompson textbook
+
+there is a function built in called foldr
+foldr stand for fold right
+in functional languages there is a concept call folding
+operations of folding
+
+some example leading up to folding:
+sum [] = 0
+sum (x:xs) = x + sum xs
+
+product [] = 1
+produc (x:xs) = x * product xs
+
+or [] = False
+or (x:xs) = x || or xs
+
+and [] = True
+and (x:xs) = x && and xs
+
+the 4 functions above are very similar in patterns and structures, the only thing that is different is the base case and the functions inside
+foldr will allow us to mash these 4 functions
+
+leading up to folding now
+this is folding.
+f [] = v
+f (x:xs) = x # f xs  --read this as: grab the head and then apply some operator # then call the function again on the tail of the list
+
+3 things are necessary here:
+1. we need to define the operator #
+2. need ot define the base case value v
+3. need the list of value to apply the function to. the 3rd idea we will relax next week
+
+some example are starting now:
+
+before we look at the definition of foldr we want to use it now:
+
+sum :: Num a => [a] -> a --Num class include Double Float Integer
+sum xs = foldr (+) 0 xs  --this read we will take foldr  and pass to it the operator + (plus is in fix so that is why it have parenthesis around it) and the base case 0 and the list xs
+sum xs = foldr add 0 xs
+
+or :: [Bool] -> Bool
+or xs = foldr (||) False xs
+
+and :: [Bool] -> Bool
+and xs = foldr (&&) True xs
+
+product :: Num a => [a] -> a
+product xs = foldr (*) 1 xs
+
+
+definition of foldr:
+
+foldr f v [] = v
+foldr f v (x:xs) = f x (foldr f v xs) --not a cons operator like we are used to with recursion
+
+
+sum xs = foldr (+) 0 xs
+sum [1,2,3] tracing
+foldr (+) 0 x:xs
+
+1 + (foldr (+) 0 [2,3])
+1 + (2 + (foldr + 0 [3]))
+1 + (2 + (3 + (foldr + 0 [])))
+1 + (2 + (3 + (0)))
+
+
+
+-}
