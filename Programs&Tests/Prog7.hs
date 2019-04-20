@@ -41,10 +41,10 @@ value1 expr = case expr of
 -- 3. Create a Expr2 type constructor that also supports 
 -- multiplication and division, in addition to the int literal, addition, 
 -- and subtraction.
--- data Expr2 = Expr1 --why does this not work
+-- data Expr2 = Expr1 --why does this not work, turn out this does not work because expr1 does not allow for Multi and Div so something like 2+(2*1) will not work with Expr1
 data Expr2 = Val2 Int
            | Add2 Expr2 Expr2
-           | Sub2 Expr2 Expr2 --can i replace 45-47 with 44?
+           | Sub2 Expr2 Expr2
            | Multi2 Expr2 Expr2
            | Div2 Expr2 Expr2
 
@@ -58,6 +58,8 @@ value2 expr = case expr of
     Multi2 n m -> maybeMulti (value2 n) (value2 m)
     Div2 n m -> maybeDiv (value2 n) (value2 m)
 
+
+--all the methods below are basically helper functions for normal mathematical operations for Maybe type.
 maybeAdd :: Maybe Int -> Maybe Int -> Maybe Int
 maybeAdd _ Nothing = Nothing
 maybeAdd Nothing _ = Nothing
@@ -75,35 +77,51 @@ maybeMulti :: Maybe Int -> Maybe Int -> Maybe Int
 maybeMulti _ Nothing = Nothing
 maybeMulti Nothing _ = Nothing
 maybeMulti (Just n) (Just m) = Just (n*m)
-
-{-
-value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
-maybeMulti (value2 (Div2 Val2 5 Val2 10)) (value2 (Div2 Val2 5 Val2 0))
+--TODO: use foldable for this, not sure how it will work may need some help later so come back to this.
 
 
-expr27 = Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
-
-value2 Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
-Just (value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0))
-
-value2' Multi2 (Div2 Val2 5 Val2 10) (Div2 Val2 5 Val2 0)
-value2' Div2 Val2 5 Val2 10 *  value2' Div2 Val2 5 Val2 0
-div (value2' Val2 5) (value2' Val2 10) * div (value2' Val2 5) (value2' Val2 0)
-div 5 10 * div 5 0
-
-expr25 = Div2 Val2 5 Val2 10
-expr26 = Div2 Val2 5 Val2 0
--}
-
-{-
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
-show :: Expr2 -> String
---6. Write a function piglatinize that returns a word into its piglatin form: if it begins with a vowel, add to the end "yay", else move non-vowels to the end of the string until a vowel is at the front and then add to the end "ay". The word arguments are guaranteed to have a vowel (a, e, i, o, or u) and not begin with the letter y.
+instance Show Expr2 where
+    show (Val2 n) = show n
+    show (Add2 n m) = "(" ++ show n ++ ['+'] ++ show m ++ ")"
+    show (Sub2 n m) = "(" ++ show n ++ ['-'] ++ show m ++ ")"
+    show (Multi2 n m) = "(" ++ show n ++ ['*'] ++ show m ++ ")"
+    show (Div2 n m) = "(" ++ show n ++ ['/'] ++ show m ++ ")"
+--TODO: get rid of the first and last "()" in number 5
+--TODO: foldable here too maybe, althought i dont think foldable is useful here
+
+--6. Write a function piglatinize that returns a word into its piglatin form: 
+--if it begins with a vowel, add to the end "yay", 
+--else move non-vowels to the end of the string until a vowel is at the front and then add to the end "ay". 
+--The word arguments are guaranteed to have a vowel (a, e, i, o, or u) and not begin with the letter y.
 piglatinize :: String -> String
+piglatinize (x:xs) = case x of
+    'a' -> (x:xs) ++ "yay"
+    'e' -> (x:xs) ++ "yay"
+    'i' -> (x:xs) ++ "yay"
+    'o' -> (x:xs) ++ "yay"
+    'u' -> (x:xs) ++ "yay"
+    _   -> piglatinizeHelper (x:xs) ++ "ay" --this called a helper function in order to preserve the string as is and then add ay at the end of the recursive calls
+piglatinizeHelper :: String -> String --this method is responsible for moving the non vowel char to the end and stop if it finds a vowel
+piglatinizeHelper (x:xs) = case x of
+    'a' -> (x:xs)
+    'e' -> (x:xs)
+    'i' -> (x:xs)
+    'o' -> (x:xs)
+    'u' -> (x:xs)
+    _   -> piglatinizeHelper (xs ++ [x])
+
 -- Consider the following type of binary trees:
 data Tree a = Leaf a | Node (Tree a) (Tree a)
 --7. A tree is balanced if the number of leaves in the left and right subtree of every node differ by at most one. Write a function balanced that returns whether a tree is balanced or not.
 balanced :: Tree a -> Bool
+balanced (Leaf a) = True
+balanced (Node left right) = or [countLeaf left == (countLeaf right - 1), countLeaf right == (countLeaf left - 1), countLeaf left == countLeaf right]
+countLeaf :: Tree a -> Int
+countLeaf (Leaf a) = 1
+countLeaf (Node n1 n2) = countLeaf n1 + countLeaf n2
+
+{-
 --8. Now we will extend the Expr example above to contain conditional expressions. Take everything from Expr2, and create an Expr3, like so:
 data Expr3 = Val3 Int
            | ...
@@ -115,6 +133,7 @@ data BExpr3 = BoolLit Bool
             | LessThan Expr3 Expr3
 --9. Write a function bEval :: BExpr3 -> Bool that evaluates instances of the above boolean expression.
 bEval :: BExpr3 -> Bool
+{-
 --10. Write a function value3 that evaluates an expression.
 value3 :: Expr3 -> Maybe Int
 
