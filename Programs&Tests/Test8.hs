@@ -55,13 +55,13 @@ First time user type in the command below
          testCase "test2e" $ assertEqual [] False (containing intList5 intList2),
 
          testCase "test3a" $ assertEqual [] (-30) (total doubleNegNum intList),
-         testCase "test3b" $ assertEqual [] 0 (total doubleNegNum intList2)
+         testCase "test3b" $ assertEqual [] 0 (total doubleNegNum intList2),
 
-         testCase "test4a" $ assertEqual [] True (containing' intList intList5),
-         testCase "test4b" $ assertEqual [] False (containing' intList5 intList),
-         testCase "test4c" $ assertEqual [] True (containing' intList2 intList5),
-         testCase "test4d" $ assertEqual [] True (containing' intList2 intList2),
-         testCase "test4e" $ assertEqual [] False (containing' intList5 intList2),
+        --  testCase "test4a" $ assertEqual [] True (containing' intList intList5),
+        --  testCase "test4b" $ assertEqual [] False (containing' intList5 intList),
+        --  testCase "test4c" $ assertEqual [] True (containing' intList2 intList5),
+        --  testCase "test4d" $ assertEqual [] True (containing' intList2 intList2),
+        --  testCase "test4e" $ assertEqual [] False (containing' intList5 intList2),
 
          testCase "test5a" $ assertEqual [] [5,2,4,0] (lengths stringList),
          testCase "test5b" $ assertEqual [] [] (lengths [])

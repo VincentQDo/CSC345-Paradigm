@@ -44,12 +44,12 @@ First time user type in the command below
    expr21 = Add2 val21 val22 --5+10
    expr22 = Sub2 val21 val22 --5-10
    expr23 = Add2 expr21 expr22 --(5+10) + (5-10)
-   expr24 = Multi2 val21 val22 --5*10
+   expr24 = Mul2 val21 val22 --5*10
    expr25 = Div2 val21 val22 --5/10
    expr26 = Div2 val21 val23 -- 5/0
-   expr27 = Multi2 expr25 expr26 -- (5/10) * (5/0)
-   expr28 = Multi2 expr21 expr22 -- (5+10) * (5-10) 
-   expr29 = Multi2 expr23 expr24 -- ((5+10) + (5-10)) * (5*10)
+   expr27 = Mul2 expr25 expr26 -- (5/10) * (5/0)
+   expr28 = Mul2 expr21 expr22 -- (5+10) * (5-10) 
+   expr29 = Mul2 expr23 expr24 -- ((5+10) + (5-10)) * (5*10)
    expr30 = Add2 expr29 expr28 -- (((5+10) + (5-10)) * (5*10)) + ((5+10) * (5-10))
 
 
@@ -80,7 +80,7 @@ First time user type in the command below
 
    expr31 = Add3 value31 value32 --8
    expr32 = Sub3 value31 value32 --2
-   expr33 = Multi3 value31 value32 --15
+   expr33 = Mul3 value31 value32 --15
    expr34 = Div3 value31 value32 --1
    expr35 = If boolExpr1 value31 value32 --5
    expr36 = If boolExpr2 value31 value32 --3
@@ -126,16 +126,16 @@ First time user type in the command below
 
          testCase "test5a" $ assertEqual [] "5" (show val21),
          testCase "test5b" $ assertEqual [] "10" (show val22),
-         testCase "test5c" $ assertEqual [] "5+10" (show expr21),
-         testCase "test5d" $ assertEqual [] "5-10" (show expr22),
-         testCase "test5e" $ assertEqual [] "(5+10)+(5-10)" (show expr23),
-         testCase "test5f" $ assertEqual [] "5*10" (show expr24),
-         testCase "test5g" $ assertEqual [] "5/10" (show expr25),
-         testCase "test5h" $ assertEqual [] "5/0" (show expr26),
-         testCase "test5i" $ assertEqual [] "(5/10)*(5/0)" (show expr27),
-         testCase "test5j" $ assertEqual [] "(5+10)*(5-10)" (show expr28),
-         testCase "test5k" $ assertEqual [] "((5+10)+(5-10))*(5*10)" (show expr29),
-         testCase "test5l" $ assertEqual [] "(((5+10)+(5-10))*(5*10))+((5+10)*(5-10))" (show expr30),
+         testCase "test5c" $ assertEqual [] "(5+10)" (show expr21),
+         testCase "test5d" $ assertEqual [] "(5-10)" (show expr22),
+         testCase "test5e" $ assertEqual [] "((5+10)+(5-10))" (show expr23),
+         testCase "test5f" $ assertEqual [] "(5*10)" (show expr24),
+         testCase "test5g" $ assertEqual [] "(5/10)" (show expr25),
+         testCase "test5h" $ assertEqual [] "(5/0)" (show expr26),
+         testCase "test5i" $ assertEqual [] "((5/10)*(5/0))" (show expr27),
+         testCase "test5j" $ assertEqual [] "((5+10)*(5-10))" (show expr28),
+         testCase "test5k" $ assertEqual [] "(((5+10)+(5-10))*(5*10))" (show expr29),
+         testCase "test5l" $ assertEqual [] "((((5+10)+(5-10))*(5*10))+((5+10)*(5-10)))" (show expr30),
 
          testCase "test6a" $ assertEqual [] "eggyay" (piglatinize "egg"),
          testCase "test6b" $ assertEqual [] "eggray" (piglatinize "greg"),

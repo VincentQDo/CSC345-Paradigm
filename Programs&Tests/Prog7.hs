@@ -31,10 +31,10 @@ value1 expr = case expr of
     Val1 n                      -> n
     Add1 (Val1 n) (Val1 m)      -> n+m
     Sub1 (Val1 n) (Val1 m)      -> n-m
-    Add1 expr (Val1 n)           -> (value1 expr)+n
-    Add1 (Val1 n) expr           -> n+(value1 expr)
-    Sub1 expr (Val1 n)           -> (value1 expr)-n
-    Sub1 (Val1 n) expr           -> n-(value1 expr)
+    Add1 expr (Val1 n)          -> (value1 expr)+n
+    Add1 (Val1 n) expr          -> n+(value1 expr)
+    Sub1 expr (Val1 n)          -> (value1 expr)-n
+    Sub1 (Val1 n) expr          -> n-(value1 expr)
     Add1 exp1 exp2              -> (value1 exp1)+(value1 exp2)
     Sub1 exp1 exp2              -> (value1 exp1)-(value1 exp2)
 
@@ -45,7 +45,7 @@ value1 expr = case expr of
 data Expr2 = Val2 Int
            | Add2 Expr2 Expr2
            | Sub2 Expr2 Expr2
-           | Multi2 Expr2 Expr2
+           | Mul2 Expr2 Expr2
            | Div2 Expr2 Expr2
 
 --4. Write a function value2 that evaluates an expression, but returns Nothing if there is a division by zero scenario.
@@ -55,7 +55,7 @@ value2 expr = case expr of
     Val2 n -> Just n
     Add2 n m -> maybeAdd (value2 n) (value2 m)
     Sub2 n m -> maybeSub (value2 n) (value2 m)
-    Multi2 n m -> maybeMulti (value2 n) (value2 m)
+    Mul2 n m -> maybeMulti (value2 n) (value2 m)
     Div2 n m -> maybeDiv (value2 n) (value2 m)
 
 
@@ -83,13 +83,13 @@ maybeMulti (Just n) (Just m) = Just (n*m)
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
 instance Show Expr2 where
     show (Val2 n) = show n
-    show n = init (tail (show' n))
+    show n = (show' n)
 
 show' :: Expr2 -> String
 show' (Val2 n) = show n
 show' (Add2 n m) = "(" ++ show' n ++ ['+'] ++ show' m ++ ")"
 show' (Sub2 n m) = "(" ++ show' n ++ ['-'] ++ show' m ++ ")"
-show' (Multi2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
+show' (Mul2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
 show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
 --TODO: get rid of the first and last "()" in number 5
 --TODO: foldable here too maybe, althought i dont think foldable is useful here
@@ -140,7 +140,7 @@ countLeaf (Node n1 n2) = countLeaf n1 + countLeaf n2
 data Expr3 = Val3 Int
             | Add3 Expr3 Expr3
             | Sub3 Expr3 Expr3
-            | Multi3 Expr3 Expr3
+            | Mul3 Expr3 Expr3
             | Div3 Expr3 Expr3
             | If BExpr3 Expr3 Expr3
 --The If data constructor (If BExpr3 Expr3 Expr3) will evaluate the boolean expression 
@@ -163,7 +163,7 @@ value3 expr = case expr of
     Val3 n -> Just n
     Add3 n m -> maybeAdd (value3 n) (value3 m)
     Sub3 n m -> maybeSub (value3 n) (value3 m)
-    Multi3 n m -> maybeMulti (value3 n) (value3 m)
+    Mul3 n m -> maybeMulti (value3 n) (value3 m)
     Div3 n m -> maybeDiv (value3 n) (value3 m)
     If b n m -> case bEval b of
         True -> value3 n
