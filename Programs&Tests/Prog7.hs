@@ -99,6 +99,7 @@ show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
 --else move non-vowels to the end of the string until a vowel is at the front and then add to the end "ay". 
 --The word arguments are guaranteed to have a vowel (a, e, i, o, or u) and not begin with the letter y.
 piglatinize :: String -> String
+piglatinize [] = "Empty List"
 piglatinize (x:xs) = case x of
     'a' -> (x:xs) ++ "yay"
     'e' -> (x:xs) ++ "yay"

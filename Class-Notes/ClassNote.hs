@@ -288,5 +288,5 @@ this would take the list xs and then add 3 to each element in xs
 very important down below
 ****************************
 addThree :: [Int] -> [Int]
-addThree = map (add 3)
+addThree = map (add 3) --this will add 3 to each element of the incoming list
 ****************************

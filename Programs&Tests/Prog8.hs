@@ -8,12 +8,8 @@ module Prog8 where
 sumSqNeg :: [Int] -> Int
 sumSqNeg xs = foldr (+) 0 (map doubleNegNum (filter isNeg xs))
   where 
-    doubleNegNum 
-doubleNegNum :: Int -> Int
-doubleNegNum n = -(n * n)
-
-isNeg :: Int -> Bool
-isNeg n = n < 0
+    doubleNegNum x = x * x
+    isNeg x = x < 0
 --2. Write a function containing (without any higher order functions) that returns whether each element in the first list is also in the second list.
 containing :: Eq a => [a] -> [a] -> Bool
 containing [] [] = True
@@ -27,23 +23,31 @@ total :: (Int -> Int) -> [Int] -> Int
 total fn xs = sum (map fn xs)
 --4. Write a function containing' (with higher order functions) that returns whether each element in the first list is also in the second list. You must use one or more higher-order functions: map, filter, foldr
 containing' :: Eq a => [a] -> [a] -> Bool
-containing' xs ys = 
+containing' xs ys = and (map (containingHelp ys) xs) --this function will execute containingHelp on every item in xs and check if it belongs in ys
 
-containingHelp :: [a] -> 
+--this function helper is to check if an item is an element of a list. This function will take in one single list then return a function
+containingHelp :: Eq a => [a] -> (a -> Bool)
+containingHelp xs = fn --the retunred function then take in an item then check if that one item is in the list that was taken in by helper function
+  where
+    fn x = elem x xs
+--TODO:: need to finish this
 --5. Write a function lengths that returns a list of lengths of the given strings. You must use one or more higher-order functions: map, filter, foldr.
 lengths :: [String] -> [Int]
 lengths xs = map length xs
 --6. Write a function product' that returns the product of a nonempty list of numbers. You must use one or more higher-order functions: map, filter, foldr.
 product' :: Num a => [a] -> a
 product' xs = foldr (*) 1 xs
---7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
+-- --7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
 max' :: Ord a => [a] -> a
-max' (x:y:xs) = case x > y of
-    True -> max' (x:xs)
-    False -> max' (y:xs) 
-{-
+max' xs = foldr max 0 xs
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
-append' :: [a] -> [a] -> [a]
+-- append' :: [a] -> [a] -> [a]
+-- append' [] [] = []
+-- append' xs [] = xs
+-- append' [] ys = ys
+-- append' xs ys = 
+{-
+
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterFirst :: (a -> Bool) -> [a] -> [a]
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.

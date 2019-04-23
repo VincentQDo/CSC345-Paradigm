@@ -40,13 +40,17 @@ First time user type in the command below
    
    stringList :: [String]
    stringList = ["hello", "hi", "long", ""]
+
+   doubleFunc :: Int -> Int
+   doubleFunc n = n * 2
+
    unitTests = testGroup "Unit tests"
      [
    
-         testCase "test1a" $ assertEqual [] (-14) (sumSqNeg intList),
+         testCase "test1a" $ assertEqual [] 14 (sumSqNeg intList),
          testCase "test1b" $ assertEqual [] 0 (sumSqNeg intList2),
          testCase "test1c" $ assertEqual [] 0 (sumSqNeg intList3),
-         testCase "test1d" $ assertEqual [] (-1) (sumSqNeg intList4),
+         testCase "test1d" $ assertEqual [] 1 (sumSqNeg intList4),
 
          testCase "test2a" $ assertEqual [] True (containing intList intList5),
          testCase "test2b" $ assertEqual [] False (containing intList5 intList),
@@ -54,29 +58,32 @@ First time user type in the command below
          testCase "test2d" $ assertEqual [] True (containing intList2 intList2),
          testCase "test2e" $ assertEqual [] False (containing intList5 intList2),
 
-         testCase "test3a" $ assertEqual [] (-30) (total doubleNegNum intList),
-         testCase "test3b" $ assertEqual [] 0 (total doubleNegNum intList2),
+         testCase "test3a" $ assertEqual [] (-4) (total doubleFunc intList),
+         testCase "test3b" $ assertEqual [] 0 (total doubleFunc intList2),
+         testCase "test3c" $ assertEqual [] 20 (total doubleFunc intList3),
+         testCase "test3d" $ assertEqual [] (-2) (total doubleFunc intList4),
+         testCase "test3e" $ assertEqual [] 18 (total doubleFunc intList5),
 
-        --  testCase "test4a" $ assertEqual [] True (containing' intList intList5),
-        --  testCase "test4b" $ assertEqual [] False (containing' intList5 intList),
-        --  testCase "test4c" $ assertEqual [] True (containing' intList2 intList5),
-        --  testCase "test4d" $ assertEqual [] True (containing' intList2 intList2),
-        --  testCase "test4e" $ assertEqual [] False (containing' intList5 intList2),
+         testCase "test4a" $ assertEqual [] True (containing' intList intList5),
+         testCase "test4b" $ assertEqual [] False (containing' intList5 intList),
+         testCase "test4c" $ assertEqual [] True (containing' intList2 intList5),
+         testCase "test4d" $ assertEqual [] True (containing' intList2 intList2),
+         testCase "test4e" $ assertEqual [] False (containing' intList5 intList2),
 
          testCase "test5a" $ assertEqual [] [5,2,4,0] (lengths stringList),
-         testCase "test5b" $ assertEqual [] [] (lengths [])
+         testCase "test5b" $ assertEqual [] [] (lengths []),
 
-         testCase "test6a" $ assertEqual [] (-14) (product' intList),
-         testCase "test6b" $ assertEqual [] 0 (product' intList2),
+         testCase "test6a" $ assertEqual [] (-24) (product' intList),
+         testCase "test6b" $ assertEqual [] 1 (product' intList2),
          testCase "test6c" $ assertEqual [] 0 (product' intList3),
-         testCase "test6d" $ assertEqual [] (-1) (product' intList4),
+         testCase "test6d" $ assertEqual [] 0 (product' intList4),
+         testCase "test6e" $ assertEqual [] (-720) (product' intList5)
 
-
-
-
-
-
-
+        --  testCase "test7a" $ assertEqual [] 4 (max' intList),
+        --  testCase "test7b" $ assertEqual [] 0 (max' intList2),
+        --  testCase "test7c" $ assertEqual [] 4 (max' intList3),
+        --  testCase "test7d" $ assertEqual [] 0 (max' intList4),
+        --  testCase "test7e" $ assertEqual [] 6 (max' intList5)
 
      ]
    
