@@ -6,8 +6,9 @@ module Prog8 where
 
 --1. Write a function sumSqNeg that computes the "sum of squares of negatives". You must use one or more higher-order functions: map, filter, foldr
 sumSqNeg :: [Int] -> Int
-sumSqNeg xs = sum (map doubleNegNum (filter isNeg xs))
-
+sumSqNeg xs = foldr (+) 0 (map doubleNegNum (filter isNeg xs))
+  where 
+    doubleNegNum 
 doubleNegNum :: Int -> Int
 doubleNegNum n = -(n * n)
 
@@ -33,9 +34,12 @@ lengths xs = map length xs
 --6. Write a function product' that returns the product of a nonempty list of numbers. You must use one or more higher-order functions: map, filter, foldr.
 product' :: Num a => [a] -> a
 product' xs = foldr (*) 1 xs
-{-
 --7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
 max' :: Ord a => [a] -> a
+max' (x:y:xs) = case x > y of
+    True -> max' (x:xs)
+    False -> max' (y:xs) 
+{-
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
 append' :: [a] -> [a] -> [a]
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.

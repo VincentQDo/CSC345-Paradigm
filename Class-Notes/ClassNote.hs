@@ -239,5 +239,15 @@ foldr (+) 0 x:xs
 1 + (2 + (3 + (0)))
 
 
-
 -}
+
+--want ot write a function that will return the sum of all of the squares of positive numbers.
+
+currying
+f :: Int -> Int -> Int --represented in curry form which is named after one of the mathematician Haskell Curry which derive lambda calculus
+--big idea, every function in haskell takes one and only one argument.
+>f 3 5
+add :: Int -> Int -> Int
+add x y = x + y
+--under the hood it is the type
+add :: Int -> (Int -> Int)

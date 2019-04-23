@@ -66,7 +66,10 @@ First time user type in the command below
          testCase "test5a" $ assertEqual [] [5,2,4,0] (lengths stringList),
          testCase "test5b" $ assertEqual [] [] (lengths [])
 
-
+         testCase "test6a" $ assertEqual [] (-14) (product' intList),
+         testCase "test6b" $ assertEqual [] 0 (product' intList2),
+         testCase "test6c" $ assertEqual [] 0 (product' intList3),
+         testCase "test6d" $ assertEqual [] (-1) (product' intList4),
 
 
 
