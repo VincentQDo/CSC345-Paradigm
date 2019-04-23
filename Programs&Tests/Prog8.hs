@@ -26,8 +26,10 @@ containing (x:xs) ys = case elem x ys of
 total :: (Int -> Int) -> [Int] -> Int
 total fn xs = sum (map fn xs)
 --4. Write a function containing' (with higher order functions) that returns whether each element in the first list is also in the second list. You must use one or more higher-order functions: map, filter, foldr
--- containing' :: Eq a => [a] -> [a] -> Bool
--- containing' xs ys = length (filter ) == length xs
+containing' :: Eq a => [a] -> [a] -> Bool
+containing' xs ys = 
+
+containingHelp :: [a] -> 
 --5. Write a function lengths that returns a list of lengths of the given strings. You must use one or more higher-order functions: map, filter, foldr.
 lengths :: [String] -> [Int]
 lengths xs = map length xs

@@ -243,11 +243,50 @@ foldr (+) 0 x:xs
 
 --want ot write a function that will return the sum of all of the squares of positive numbers.
 
-currying
+--currying
 f :: Int -> Int -> Int --represented in curry form which is named after one of the mathematician Haskell Curry which derive lambda calculus
 --big idea, every function in haskell takes one and only one argument.
 >f 3 5
+
 add :: Int -> Int -> Int
 add x y = x + y
 --under the hood it is the type
 add :: Int -> (Int -> Int)
+add x = g
+  where
+    g y = x + y
+--(add 3) would return the "3+" function then 3+ would take in argument 4 and return 7
+-- so add would take in an Int then return (Int -> Int)
+
+-- -> is right asscoiated
+-- function application a is left asscoiated
+
+-- add 3 theoratically make sense by itself
+so theoratically we can make
+belong :: a -> b
+belong (x:xs) = belong'
+  where
+    belong' ys = x elem ys
+
+curried form
+add :: Int -> Int -> Int
+add x y = x + y
+1 args fn
+return fn if there are multi args
+
+uncarried form
+add :: (Int, Int) -> Int
+add (x,y) = x + y
+
+both forms are possible but function would elect to go with the curry form.
+
+aprtial application of add
+add 3 will have the type Int -> Int
+we can combine this with map
+map (add 3) xs
+this would take the list xs and then add 3 to each element in xs
+very important down below
+****************************
+addThree :: [Int] -> [Int]
+addThree = map (add 3)
+****************************
