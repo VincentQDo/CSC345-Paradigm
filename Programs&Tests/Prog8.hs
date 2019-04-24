@@ -42,8 +42,7 @@ max' :: (Ord a, Num a) => [a] -> a
 max' xs = foldr max 0 xs
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
 append' :: [a] -> [a] -> [a]
-append' xs ys = foldr (:) [] (xs++ys)
---TODO: Need to ask question about this can I use ++ in the append function?
+append' xs ys = foldr (:) ys xs 
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterFirst :: Eq a => (a -> Bool) -> [a] -> [a]
 filterFirst fn xs = case filter fn xs of 
@@ -57,4 +56,3 @@ filterFirst fn xs = case filter fn xs of
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterLast :: Eq a => (a -> Bool) -> [a] -> [a]
 filterLast fn xs = reverse (filterFirst fn (reverse xs))
---TODO: ask question, this reuse function filterFirst which use filter, does this count or I have to rewrite this?
