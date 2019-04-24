@@ -45,7 +45,12 @@ append' :: [a] -> [a] -> [a]
 append' xs ys = foldr (:) [] (xs++ys)
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterFirst :: (a -> Bool) -> [a] -> [a]
-filterFirst fn xs = filter fn xs
+filterFirst fn xs = removeFirst (head (filter fn xs)) xs
+
+removeFirst :: Eq a => a -> [a] -> [a]
+removeFirst x (y:ys) = case x == y of
+    True -> ys
+    False -> y : removeFirst x ys
 {-
 
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
