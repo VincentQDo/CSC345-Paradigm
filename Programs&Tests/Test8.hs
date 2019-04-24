@@ -37,6 +37,10 @@ First time user type in the command below
    intList4 = [0,(-1)]
    intList5 :: [Int]
    intList5 = [(-1),(-2),(-3),4,5,6]
+   intList6 :: [Int]
+   intList6 = [(-1),(-3)]
+   intList7 :: [Int]
+   intList7 = [1,2,2]
    
    stringList :: [String]
    stringList = ["hello", "hi", "long", ""]
@@ -86,9 +90,18 @@ First time user type in the command below
          testCase "test7e" $ assertEqual [] 6 (max' intList5),
 
          testCase "test8a" $ assertEqual [] [(-1),(-2),(-3),4] (append' intList intList2),
-         testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3)
+         testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3),
 
+         testCase "test9a" $ assertEqual [] [(-1),(-3),4] (filterFirst even intList),
+         testCase "test9b" $ assertEqual [] [] (filterFirst even intList2),
+         testCase "test9c" $ assertEqual [] [(-1),(-3)] (filterFirst even intList6),
+         testCase "test9d" $ assertEqual [] [1,2] (filterFirst even intList7),
 
-         
+         testCase "test10a" $ assertEqual [] [(-1),(-2),(-3)] (filterLast even intList),
+         testCase "test10b" $ assertEqual [] [] (filterLast even intList2),
+         testCase "test10c" $ assertEqual [] [1,2] (filterLast even intList7),
+         testCase "test10d" $ assertEqual [] [(-1),(-3)] (filterLast even intList6),
+         testCase "test10e" $ assertEqual [] [(-1),(-2),(-3),4,5] (filterLast even intList5)
+
      ]
    

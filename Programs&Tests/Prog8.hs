@@ -43,16 +43,18 @@ max' xs = foldr max 0 xs
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
 append' :: [a] -> [a] -> [a]
 append' xs ys = foldr (:) [] (xs++ys)
+--TODO: Need to ask question about this can I use ++ in the append function?
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
-filterFirst :: (a -> Bool) -> [a] -> [a]
-filterFirst fn xs = removeFirst (head (filter fn xs)) xs
-
-removeFirst :: Eq a => a -> [a] -> [a]
-removeFirst x (y:ys) = case x == y of
-    True -> ys
-    False -> y : removeFirst x ys
-{-
-
+filterFirst :: Eq a => (a -> Bool) -> [a] -> [a]
+filterFirst fn xs = case filter fn xs of 
+    [] -> xs --if the filter return empty list then just return the whole list because there will be nothing to remove
+    _  -> removeFirst (head (filter fn xs)) xs --if filter return anything then take the head of that list and remove it from the input list then return the rest of the list
+    where
+        removeFirst :: Eq a => a -> [a] -> [a] --this function will remove the first elemtn in a list that is the same as the input element and return the previous list without that removed element
+        removeFirst x (y:ys) = case x == y of
+            True -> ys
+            False -> y : removeFirst x ys
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
-filterLast :: (a -> Bool) -> [a] -> [a]
--}
+filterLast :: Eq a => (a -> Bool) -> [a] -> [a]
+filterLast fn xs = reverse (filterFirst fn (reverse xs))
+--TODO: ask question, this reuse function filterFirst which use filter, does this count or I have to rewrite this?
