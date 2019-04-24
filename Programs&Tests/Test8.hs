@@ -77,13 +77,18 @@ First time user type in the command below
          testCase "test6b" $ assertEqual [] 1 (product' intList2),
          testCase "test6c" $ assertEqual [] 0 (product' intList3),
          testCase "test6d" $ assertEqual [] 0 (product' intList4),
-         testCase "test6e" $ assertEqual [] (-720) (product' intList5)
+         testCase "test6e" $ assertEqual [] (-720) (product' intList5),
 
-        --  testCase "test7a" $ assertEqual [] 4 (max' intList),
-        --  testCase "test7b" $ assertEqual [] 0 (max' intList2),
-        --  testCase "test7c" $ assertEqual [] 4 (max' intList3),
-        --  testCase "test7d" $ assertEqual [] 0 (max' intList4),
-        --  testCase "test7e" $ assertEqual [] 6 (max' intList5)
+         testCase "test7a" $ assertEqual [] 4 (max' intList),
+         testCase "test7b" $ assertEqual [] 0 (max' intList2),
+         testCase "test7c" $ assertEqual [] 4 (max' intList3),
+         testCase "test7d" $ assertEqual [] 0 (max' intList4),
+         testCase "test7e" $ assertEqual [] 6 (max' intList5),
 
+         testCase "test8a" $ assertEqual [] [(-1),(-2),(-3),4] (append' intList intList2),
+         testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3)
+
+
+         
      ]
    

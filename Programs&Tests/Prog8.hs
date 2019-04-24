@@ -38,18 +38,16 @@ lengths xs = map length xs
 product' :: Num a => [a] -> a
 product' xs = foldr (*) 1 xs
 -- --7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
-max' :: Ord a => [a] -> a
+max' :: (Ord a, Num a) => [a] -> a
 max' xs = foldr max 0 xs
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
--- append' :: [a] -> [a] -> [a]
--- append' [] [] = []
--- append' xs [] = xs
--- append' [] ys = ys
--- append' xs ys = 
-{-
-
+append' :: [a] -> [a] -> [a]
+append' xs ys = foldr (:) [] (xs++ys)
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterFirst :: (a -> Bool) -> [a] -> [a]
+filterFirst fn xs = filter fn xs
+{-
+
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterLast :: (a -> Bool) -> [a] -> [a]
 -}
