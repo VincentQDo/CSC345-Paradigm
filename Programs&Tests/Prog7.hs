@@ -83,7 +83,7 @@ maybeMulti (Just n) (Just m) = Just (n*m)
 --5. Make the Expr2 type an instance of the Show class. Appropriate define the function show so that (Add2 (Val2 3) (Val2 4)) returns the string "3 + 4".
 instance Show Expr2 where
     show (Val2 n) = show n
-    show n = (show' n)
+    show n = show' n
 
 show' :: Expr2 -> String
 show' (Val2 n) = show n
