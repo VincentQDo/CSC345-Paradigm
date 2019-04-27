@@ -91,8 +91,6 @@ show' (Add2 n m) = "(" ++ show' n ++ ['+'] ++ show' m ++ ")"
 show' (Sub2 n m) = "(" ++ show' n ++ ['-'] ++ show' m ++ ")"
 show' (Mul2 n m) = "(" ++ show' n ++ ['*'] ++ show' m ++ ")"
 show' (Div2 n m) = "(" ++ show' n ++ ['/'] ++ show' m ++ ")"
---TODO: get rid of the first and last "()" in number 5
---TODO: foldable here too maybe, althought i dont think foldable is useful here
 
 --6. Write a function piglatinize that returns a word into its piglatin form: 
 --if it begins with a vowel, add to the end "yay", 

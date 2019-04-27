@@ -92,16 +92,17 @@ First time user type in the command below
          testCase "test8a" $ assertEqual [] [(-1),(-2),(-3),4] (append' intList intList2),
          testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3),
 
-         testCase "test9a" $ assertEqual [] [(-1),(-3),4] (filterFirst even intList),
+         testCase "test9a" $ assertEqual [] [(-2),(-3),4] (filterFirst even intList),
          testCase "test9b" $ assertEqual [] [] (filterFirst even intList2),
-         testCase "test9c" $ assertEqual [] [(-1),(-3)] (filterFirst even intList6),
-         testCase "test9d" $ assertEqual [] [1,2] (filterFirst even intList7),
+         testCase "test9c" $ assertEqual [] [(-3)] (filterFirst even intList6),
+         testCase "test9d" $ assertEqual [] [2,2] (filterFirst even intList7),
+         testCase "test9e" $ assertEqual [] [(-2),(-3),4,5,6] (filterFirst even intList5),
 
-         testCase "test10a" $ assertEqual [] [(-1),(-2),(-3)] (filterLast even intList),
+
+         testCase "test10a" $ assertEqual [] [(-1),(-2),4] (filterLast even intList),
          testCase "test10b" $ assertEqual [] [] (filterLast even intList2),
-         testCase "test10c" $ assertEqual [] [1,2] (filterLast even intList7),
-         testCase "test10d" $ assertEqual [] [(-1),(-3)] (filterLast even intList6),
-         testCase "test10e" $ assertEqual [] [(-1),(-2),(-3),4,5] (filterLast even intList5)
+         testCase "test10c" $ assertEqual [] [2,2] (filterLast even intList7),
+         testCase "test10d" $ assertEqual [] [(-1)] (filterLast even intList6),
+         testCase "test10e" $ assertEqual [] [(-1),(-2),(-3),4,6] (filterLast even intList5)
 
      ]
-   

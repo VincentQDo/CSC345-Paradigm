@@ -6,10 +6,7 @@ module Prog8 where
 
 --1. Write a function sumSqNeg that computes the "sum of squares of negatives". You must use one or more higher-order functions: map, filter, foldr
 sumSqNeg :: [Int] -> Int
-sumSqNeg xs = foldr (+) 0 (map doubleNegNum (filter isNeg xs))
-  where 
-    doubleNegNum x = x * x
-    isNeg x = x < 0
+sumSqNeg xs = foldr (+) 0 (map (^2) (filter (<0) xs))
 
 --2. Write a function containing (without any higher order functions) that returns whether each element in the first list is also in the second list.
 containing :: Eq a => [a] -> [a] -> Bool
@@ -51,15 +48,17 @@ append' xs ys = foldr (:) ys xs
 
 --9. Write a function filterFirst that removes the first element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterFirst :: Eq a => (a -> Bool) -> [a] -> [a]
-filterFirst fn xs = case filter fn xs of 
+filterFirst fn xs = case reverseFilter fn xs of 
     [] -> xs --if the filter return empty list then just return the whole list because there will be nothing to remove
-    _  -> removeFirst (head (filter fn xs)) xs --if filter return anything then take the head of that list and remove it from the input list then return the rest of the list
+    _  -> removeFirst (head (reverseFilter fn xs)) xs --if filter return anything then take the head of that list and remove it from the input list then return the rest of the list
     where
         removeFirst :: Eq a => a -> [a] -> [a] --this function will remove the first elemtn in a list that is the same as the input element and return the previous list without that removed element
         removeFirst x (y:ys) = case x == y of
             True -> ys
             False -> y : removeFirst x ys
-
+        reverseFilter fn xs = reverseIntersect (filter fn xs) xs
+        reverseIntersect xs ys = [x | x <- ys, elem x xs == False]
+--TODO: redo this this is oposite of the requirement, remove first item that does not satisfy not the first item that satisfy
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterLast :: Eq a => (a -> Bool) -> [a] -> [a]
 filterLast fn xs = reverse (filterFirst fn (reverse xs))

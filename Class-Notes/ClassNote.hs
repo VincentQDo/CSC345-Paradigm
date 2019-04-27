@@ -290,3 +290,62 @@ very important down below
 addThree :: [Int] -> [Int]
 addThree = map (add 3) --this will add 3 to each element of the incoming list
 ****************************
+
+
+sum xs = foldr (+) 0 xs
+sum = foldr (+) 0
+--296 and 295 are the same thing
+
+--lambda expression
+f :: [Int] -> Int
+f xs = foldr (+) 0 (map sqr (filter pos xs))
+  where
+    sqr x = x * x
+    pos x = x > 0
+--now convert it to lambda expression
+--we will be coming up with nameless function
+addOne x = x + 1 --normal
+\x = x + 1 --lambda
+308 and 307 are the same thing
+
+--translating 300-304 to below:
+f xs = foldr (+) 0 (map (\x -> x*x) (filter (\x -> x>0) xs))
+--even shorter
+f xs = foldr (+) 0 (map (^2) (filter (>0) xs))
+
+evaluation of lambda expression
+(\x -> x > 0) 3
+let x = 3 in x > 0
+3 > 0
+True
+
+(\x -> \y -> x + y) 3 4
+(let x = 3 in (\y -> x + y)) 4
+(\y -> 3 + y) 4
+let y = 4 in (\y -> 3 + y)
+3 + 4
+
+\x ->  x > 0 can also be written as (>0)
+\x ->  x+1 can also be written as (+1)
+
+add x y = x + y
+add = \x -> (\y -> x + y)
+--331-332 are the same
+const x _ = x
+const x = (\_ -> x)
+const = \x -> (\_ -> x)
+--334-336 are all the same
+
+potential final question
+**********************************
+odds :: Int -> [Int]
+--will return first n odd ints
+>odds 3 should return 1,3,5
+--answer would be
+odds x = map (\n -> 2*n+1) [0..n-1]
+or
+odds x = map (+1).(*2) [0..x-1]
+
+
+function composition
+the '.' operator will pass the result of one function to another
