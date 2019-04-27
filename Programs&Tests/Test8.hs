@@ -45,8 +45,7 @@ First time user type in the command below
    stringList :: [String]
    stringList = ["hello", "hi", "long", ""]
 
-   doubleFunc :: Int -> Int
-   doubleFunc n = n * 2
+   doubleFunc = (*2)
 
    unitTests = testGroup "Unit tests"
      [
@@ -84,10 +83,11 @@ First time user type in the command below
          testCase "test6e" $ assertEqual [] (-720) (product' intList5),
 
          testCase "test7a" $ assertEqual [] 4 (max' intList),
-         testCase "test7b" $ assertEqual [] 0 (max' intList2),
          testCase "test7c" $ assertEqual [] 4 (max' intList3),
          testCase "test7d" $ assertEqual [] 0 (max' intList4),
          testCase "test7e" $ assertEqual [] 6 (max' intList5),
+         testCase "test7f" $ assertEqual [] (-1) (max' intList6),
+
 
          testCase "test8a" $ assertEqual [] [(-1),(-2),(-3),4] (append' intList intList2),
          testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3),
