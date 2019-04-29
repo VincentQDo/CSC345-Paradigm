@@ -349,3 +349,14 @@ odds x = map (+1).(*2) [0..x-1]
 
 function composition
 the '.' operator will pass the result of one function to another
+pos (sqr 3) can be rewrite as (pos.sqr) 3
+pos 9
+True
+
+(.) :: (b -> c) -> (a -> b) -> a -> c
+(f . g) x = f (g x) 
+(.) f g = \x -> f (g x)
+
+possqr :: Int -> Bool
+possqr x = pos (sqr x)
+possqr = pos.sqr
