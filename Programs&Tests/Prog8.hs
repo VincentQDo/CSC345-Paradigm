@@ -39,8 +39,8 @@ product' :: Num a => [a] -> a
 product' xs = foldr (*) 1 xs
 
 -- --7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
-max' :: (Ord a, Num a) => [a] -> a
-max' xs = foldr max 0 xs
+max' :: Ord a => [a] -> a
+max' (x:xs) = foldr max x xs
 
 --8. Write a function append' that appends two lists. You must use one or more higher-order functions: map, filter, foldr.
 append' :: [a] -> [a] -> [a]

@@ -27,26 +27,17 @@ First time user type in the command below
    tests :: TestTree
    tests = testGroup "Tests" [unitTests]
    
-   intList :: [Int]
    intList = [(-1),(-2),(-3),4]
    intList2 :: [Int]
    intList2 = []
-   intList3 :: [Int]
    intList3 = [0,2,3,1,4]
-   intList4 :: [Int]
    intList4 = [0,(-1)]
-   intList5 :: [Int]
    intList5 = [(-1),(-2),(-3),4,5,6]
-   intList6 :: [Int]
    intList6 = [(-1),(-3)]
-   intList7 :: [Int]
    intList7 = [1,2,2]
    
    stringList :: [String]
    stringList = ["hello", "hi", "long", ""]
-
-   doubleFunc :: Int -> Int
-   doubleFunc n = n * 2
 
    unitTests = testGroup "Unit tests"
      [
@@ -62,11 +53,11 @@ First time user type in the command below
          testCase "test2d" $ assertEqual [] True (containing intList2 intList2),
          testCase "test2e" $ assertEqual [] False (containing intList5 intList2),
 
-         testCase "test3a" $ assertEqual [] (-4) (total doubleFunc intList),
-         testCase "test3b" $ assertEqual [] 0 (total doubleFunc intList2),
-         testCase "test3c" $ assertEqual [] 20 (total doubleFunc intList3),
-         testCase "test3d" $ assertEqual [] (-2) (total doubleFunc intList4),
-         testCase "test3e" $ assertEqual [] 18 (total doubleFunc intList5),
+         testCase "test3a" $ assertEqual [] (-4) (total (*2) intList),
+         testCase "test3b" $ assertEqual [] 0 (total (*2) intList2),
+         testCase "test3c" $ assertEqual [] 20 (total (*2) intList3),
+         testCase "test3d" $ assertEqual [] (-2) (total (*2) intList4),
+         testCase "test3e" $ assertEqual [] 18 (total (*2) intList5),
 
          testCase "test4a" $ assertEqual [] True (containing' intList intList5),
          testCase "test4b" $ assertEqual [] False (containing' intList5 intList),
@@ -78,16 +69,15 @@ First time user type in the command below
          testCase "test5b" $ assertEqual [] [] (lengths []),
 
          testCase "test6a" $ assertEqual [] (-24) (product' intList),
-         testCase "test6b" $ assertEqual [] 1 (product' intList2),
          testCase "test6c" $ assertEqual [] 0 (product' intList3),
          testCase "test6d" $ assertEqual [] 0 (product' intList4),
          testCase "test6e" $ assertEqual [] (-720) (product' intList5),
 
          testCase "test7a" $ assertEqual [] 4 (max' intList),
-         testCase "test7b" $ assertEqual [] 0 (max' intList2),
          testCase "test7c" $ assertEqual [] 4 (max' intList3),
          testCase "test7d" $ assertEqual [] 0 (max' intList4),
          testCase "test7e" $ assertEqual [] 6 (max' intList5),
+         testCase "test7f" $ assertEqual [] (-1) (max' intList6),
 
          testCase "test8a" $ assertEqual [] [(-1),(-2),(-3),4] (append' intList intList2),
          testCase "test8b" $ assertEqual [] [(-1),(-2),(-3),4,0,2,3,1,4] (append' intList intList3),
@@ -97,12 +87,14 @@ First time user type in the command below
          testCase "test9c" $ assertEqual [] [(-3)] (filterFirst even intList6),
          testCase "test9d" $ assertEqual [] [2,2] (filterFirst even intList7),
          testCase "test9e" $ assertEqual [] [(-2),(-3),4,5,6] (filterFirst even intList5),
-
+         testCase "test9d" $ assertEqual [] [1,2] (filterFirst (not.even) intList7),
 
          testCase "test10a" $ assertEqual [] [(-1),(-2),4] (filterLast even intList),
          testCase "test10b" $ assertEqual [] [] (filterLast even intList2),
          testCase "test10c" $ assertEqual [] [2,2] (filterLast even intList7),
          testCase "test10d" $ assertEqual [] [(-1)] (filterLast even intList6),
-         testCase "test10e" $ assertEqual [] [(-1),(-2),(-3),4,6] (filterLast even intList5)
+         testCase "test10e" $ assertEqual [] [(-1),(-2),(-3),4,6] (filterLast even intList5),
+         testCase "test10d" $ assertEqual [] [(-1),(-3)] (filterLast (not.even) intList6)
+
 
      ]
