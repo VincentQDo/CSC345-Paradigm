@@ -393,3 +393,58 @@ lazy:
 (2*3) + 1
 6 + 1
 7
+
+
+it is much easier to predict order of strict eval but you may be doing some unneeded works.
+
+n = 0
+
+
+n + (n = 1) --imperitive expression, set n to 1 then return value of n
+{applying n} --which then return 0 for first n
+0 + (n = 1)
+{apply the assignment imperitive expression which set n to 1 then return value of n}
+0 + 1
+1
+java will prob choose this implementation instead
+n + (n = 1) --n is still value of 0
+{apply imperitive expression which change value of n to 1 then return 1}
+n + 1
+{apply n, look up the value of n in memory which is 1 now}
+1 + 1
+2
+
+
+in a language with side effect, strict is what you want
+haskell have no side effect so that is why we can do lazy eval
+
+lazy eval: evaluation of fn argss, delay as long as possible args won't be eval until neccessary, fn args, internally represented as "unevaluate expr"
+
+f1 n = (n,n)
+f1 n = (n,n)
+>f1 (2+2) --lazy eval wont have to do 2+2 but strict does
+>f1 9
+
+f m n p
+  | m >= n = m --p can be untouch
+  | otherwise = p --p can be unevaluated you dont have to evaluate it in lazy eval
+
+f m n
+  |notNil xs = front xs
+  |otherwise = n
+  where
+    xs = [m..n]
+front (x:y:zs) = x + y
+front [x] = x
+notNil [] = False
+notNil (_:_) = True
+
+f 3 5
+1. notNil xs
+  1a. xs = [3..5] --partially unevaluated
+2. notNil [3..5]
+  2a. pattern match [3..5] did not match anything so we eval it to (3:[4..5])
+  2b. True
+3. fn calls to front xs which is front (3:[4..5])
+  3a. (3:[4..5]) it does not match so we have to eval it more which is (3:4:[5]) we dont have to eval [5]
+  3b. 3+4 not 7 because we dont need to eval it yet
