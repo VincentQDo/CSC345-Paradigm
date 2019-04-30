@@ -448,3 +448,28 @@ f 3 5
 3. fn calls to front xs which is front (3:[4..5])
   3a. (3:[4..5]) it does not match so we have to eval it more which is (3:4:[5]) we dont have to eval [5]
   3b. 3+4 not 7 because we dont need to eval it yet
+
+
+evaluation order
+both f and g will take 2 integer arguments g will return an int
+
+>f 3 (g 1 2)
+java going to do inside out so figure out g then apply f
+
+haskell apply outside in which is aplly f first then apply g
+
+left to right
+(f 1 2) + (f 1 3)
+(1*2) + (f 1 3)
+2 + (f 1 3)
+2 + (1*3)
+2 + 3
+5
+
+haskell is outside in and left to right
+
+no duplicated expressions in haskell
+
+h (9-3) (h 34 3)
+(9-3) + (9-3)
+6 + 6 --did the first one and that be come 6 the seond one is automatically become 6 as well so we dont have to redo the work
