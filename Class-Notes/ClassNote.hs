@@ -360,3 +360,13 @@ True
 possqr :: Int -> Bool
 possqr x = pos (sqr x)
 possqr = pos.sqr
+
+f.g.h
+h is applied first then g then f
+
+f xs = foldr (+) 0 (map (^2) (filter (>0) xs))
+f = foldr (+) 0 . map(^2) . filter (>0)
+
+there is a second composition operator 
+(>.>) :: (a->b) -> (b->c) -> (a->c)
+f>.>g = g.f --syntactic sugar to write it in a different order

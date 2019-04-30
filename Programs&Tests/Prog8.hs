@@ -6,7 +6,7 @@ module Prog8 where
 
 --1. Write a function sumSqNeg that computes the "sum of squares of negatives". You must use one or more higher-order functions: map, filter, foldr
 sumSqNeg :: [Int] -> Int
-sumSqNeg xs = foldr (+) 0 (map (^2) (filter (<0) xs))
+sumSqNeg = foldr (+) 0 . map (^2) . filter (<0)
 
 --2. Write a function containing (without any higher order functions) that returns whether each element in the first list is also in the second list.
 containing :: Eq a => [a] -> [a] -> Bool
@@ -19,7 +19,7 @@ containing (x:xs) ys = case elem x ys of
 
 --3. Write a function total that applies the function (first argument) to every element in the list (second argument) and sums the result. You must use one or more higher-order functions: map, filter, foldr
 total :: (Int -> Int) -> [Int] -> Int
-total fn xs = sum (map fn xs)
+total fn = sum . map fn
 
 --4. Write a function containing' (with higher order functions) that returns whether each element in the first list is also in the second list. You must use one or more higher-order functions: map, filter, foldr
 containing' :: Eq a => [a] -> [a] -> Bool
@@ -36,7 +36,7 @@ lengths xs = map length xs
 
 --6. Write a function product' that returns the product of a nonempty list of numbers. You must use one or more higher-order functions: map, filter, foldr.
 product' :: Num a => [a] -> a
-product' xs = foldr (*) 1 xs
+product' = foldr (*) 1
 
 -- --7. Write a function max' that returns the largest element of a nonempty list. You must use one or more higher-order functions: map, filter, foldr.
 max' :: Ord a => [a] -> a
@@ -61,4 +61,4 @@ filterFirst fn xs = case reverseFilter fn xs of
 --TODO: redo this this is oposite of the requirement, remove first item that does not satisfy not the first item that satisfy
 --10. Write a function filterLast that removes the last element from the list (second argument) that does not satisfy a given predicate function (first argument). You must use one or more higher-order functions: map, filter, foldr.
 filterLast :: Eq a => (a -> Bool) -> [a] -> [a]
-filterLast fn xs = reverse (filterFirst fn (reverse xs))
+filterLast fn = reverse.(filterFirst fn).reverse
