@@ -32,7 +32,7 @@ containingHelp xs = fn --This function will take in a list then return a functio
 
 --5. Write a function lengths that returns a list of lengths of the given strings. You must use one or more higher-order functions: map, filter, foldr.
 lengths :: [String] -> [Int]
-lengths xs = map length xs
+lengths = map length
 
 --6. Write a function product' that returns the product of a nonempty list of numbers. You must use one or more higher-order functions: map, filter, foldr.
 product' :: Num a => [a] -> a

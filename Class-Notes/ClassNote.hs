@@ -370,3 +370,26 @@ f = foldr (+) 0 . map(^2) . filter (>0)
 there is a second composition operator 
 (>.>) :: (a->b) -> (b->c) -> (a->c)
 f>.>g = g.f --syntactic sugar to write it in a different order
+
+Strict evaluation is java
+while haskell use lazy evaluation
+
+strict evaluation: any argument you want to pass to a function will be evaluate completely before being pass to a fcuntion
+strict eval will eval any parameter even if we dont use it
+for example
+
+f x y= x + 5
+>f 4 (5^27928374982) this will waste a lot of time trying to eval the second argument
+
+strict:
+>inc (2*3)
+{apply multi}
+inc 6
+7
+
+lazy:
+>inc (2*3)
+{apply inc}
+(2*3) + 1
+6 + 1
+7
