@@ -1,2 +1,2 @@
 # CSC345-Paradigm
-Everthing related to CSC345 will be here, classnotes and program assignments
+Programs and test files for CSC345 Paradigm
